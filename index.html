@@ -23,12 +23,14 @@
     --word:#2E5FF2; --word-soft:#EAF0FF; --excel:#0FA971; --excel-soft:#E3FBF1; --ppt:#FF5A36; --ppt-soft:#FFECE4;
     --violet:#7C5CFC; --violet-soft:#F1EDFF; --radius:16px; --radius-sm:10px;
     --dot-a:radial-gradient(circle, rgba(46,95,242,.10) 1.2px, transparent 1.2px);
+    --text-body:#3B3C46;
   }
   html[data-theme="dark"]{
     --bg:#12131B; --surface:#1B1C27; --surface-2:#242533; --ink:#F1F1F7; --ink-soft:#9A9BB0; --line:#33344A;
     --word:#5B84FF; --word-soft:#20263F; --excel:#2FD196; --excel-soft:#183328; --ppt:#FF7A57; --ppt-soft:#3A2318;
     --violet:#9C87FF; --violet-soft:#2A2440;
     --dot-a:radial-gradient(circle, rgba(91,132,255,.14) 1.2px, transparent 1.2px);
+    --text-body:#D4D5E2;
   }
   body{background-image:var(--dot-a);background-size:22px 22px;}
   *{box-sizing:border-box;}
@@ -148,7 +150,7 @@
   @media (max-width:900px){.lesson-wrap{grid-template-columns:1fr;}}
   .lesson-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;}
   .lesson-card h3{margin-bottom:14px;font-size:21px;}
-  .lesson-card p, .lesson-card li{font-size:14.5px;line-height:1.75;color:#3B3C46;}
+  .lesson-card p, .lesson-card li{font-size:14.5px;line-height:1.75;color:var(--text-body);}
   .lesson-card ul{padding-left:20px;margin:10px 0;}
   .lesson-card code{background:var(--surface-2);padding:2px 6px;border-radius:5px;font-size:13px;}
   .step-badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:5px 12px;border-radius:999px;margin-bottom:16px;margin-right:8px;}
@@ -160,19 +162,19 @@
   .tbtn.wide{width:auto;padding:0 12px;font-size:12.5px;}
   .tbtn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
   .mini-select{padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:12.5px;background:var(--surface);color:var(--ink);}
-  .word-editor{min-height:120px;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:16px;font-size:15px;line-height:1.7;}
+  .word-editor{min-height:120px;background:#fff;color:#15161C;border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:16px;font-size:15px;line-height:1.7;}
   .word-editor:focus{outline:none;border-color:var(--word);}
 
   .grid-sheet{border-collapse:collapse;width:100%;background:#fff;border-radius:var(--radius-sm);overflow:hidden;}
   .grid-sheet th{background:var(--surface-2);font-size:12px;color:var(--ink-soft);padding:7px;border:1px solid var(--line);font-weight:700;}
   .grid-sheet td{border:1px solid var(--line);padding:0;}
-  .grid-sheet td input{width:100%;border:none;padding:9px 10px;font-size:13.5px;text-align:right;background:transparent;}
+  .grid-sheet td input{width:100%;border:none;padding:9px 10px;font-size:13.5px;text-align:right;background:transparent;color:#15161C;}
   .grid-sheet td input:focus{outline:2px solid var(--excel);position:relative;z-index:1;}
   .grid-sheet td.label{background:var(--surface-2);text-align:center;font-weight:700;color:var(--ink-soft);font-size:12px;padding:9px;}
 
   .slide-canvas{background:#fff;border:1.5px solid var(--line);aspect-ratio:16/9;border-radius:var(--radius-sm);padding:26px;position:relative;display:flex;flex-direction:column;justify-content:center;border-top:7px solid var(--ppt);transition:background .25s, border-color .25s;}
-  .slide-canvas input.slide-title{border:none;font-family:'Space Grotesk',sans-serif;font-size:25px;font-weight:700;color:var(--ink);margin-bottom:10px;background:transparent;}
-  .slide-canvas textarea.slide-body{border:none;font-size:14px;color:var(--ink-soft);resize:none;background:transparent;line-height:1.6;}
+  .slide-canvas input.slide-title{border:none;font-family:'Space Grotesk',sans-serif;font-size:25px;font-weight:700;color:#15161C;margin-bottom:10px;background:transparent;}
+  .slide-canvas textarea.slide-body{border:none;font-size:14px;color:#5B5D6B;resize:none;background:transparent;line-height:1.6;}
   .slide-canvas input:focus, .slide-canvas textarea:focus{outline:none;}
   .layout-picks{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
   .layout-pick{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--ink-soft);}
@@ -262,6 +264,20 @@
   .thumb{width:46px;height:30px;border-radius:4px;background:var(--surface);border:2px solid var(--line);flex-shrink:0;}
   .thumb.active{border-color:var(--ppt);}
 
+  /* Floating ABK settings modal */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(10,10,18,.55);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px);}
+  .modal-card{background:var(--surface);border-radius:20px;padding:30px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.35);animation:modalFloat .22s ease;max-height:85vh;overflow-y:auto;}
+  @keyframes modalFloat{from{opacity:0;transform:translateY(18px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+  .abk-check-row{display:flex;align-items:flex-start;gap:12px;padding:12px 10px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;}
+  .abk-check-row:hover{background:var(--surface-2);}
+  .abk-check-row input{width:18px;height:18px;margin-top:2px;accent-color:var(--violet);flex-shrink:0;}
+  .abk-check-row .acr-title{font-weight:700;font-size:14px;}
+  .abk-check-row .acr-desc{font-size:12px;color:var(--ink-soft);margin-top:2px;line-height:1.5;}
+
+  /* Functional ribbon tabs (Studio Latihan) */
+  .rtab-fake.clickable{cursor:pointer;}
+  .rtab-fake.clickable:hover{color:var(--ink);}
+
   @media (max-width:600px){.auth-hero h1{font-size:32px;} .lesson-card{padding:22px;}}
 </style>
 </head>
@@ -328,6 +344,7 @@
     </div>
     <div class="app-main"><div class="container" id="viewRoot"></div></div>
   </div>
+  <div id="abkModalRoot"></div>
 </div>
 
 <script>
@@ -346,13 +363,12 @@
    ========================================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAwABtavcBrSTYRL9mlmHM01z_fbz2wkiA",
-  authDomain: "officecraft-studio.firebaseapp.com",
-  projectId: "officecraft-studio",
-  storageBucket: "officecraft-studio.firebasestorage.app",
-  messagingSenderId: "625737188043",
-  appId: "1:625737188043:web:acea90962a0964a5eb514e",
-  measurementId: "G-5TGEYWHVC3"
+  apiKey: "GANTI_DENGAN_API_KEY_FIREBASE_MU",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
+  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
+  appId: "GANTI_DENGAN_APP_ID"
 };
 
 let fbReady = false;
@@ -387,6 +403,8 @@ const DB = {
 let session = null;
 let currentUserData = null;
 let currentAbkMode = 'baca';
+let abkEnabledModes = ['baca','visual','audio','praktik'];
+try{ const saved = JSON.parse(localStorage.getItem('ocs_abk_modes')||'null'); if(saved && saved.length) abkEnabledModes = saved; }catch(e){}
 
 function setTheme(t){
   document.documentElement.setAttribute('data-theme', t);
@@ -780,7 +798,8 @@ function renderNav(){
   const nav = document.getElementById('navList');
   let html = `<button class="nav-btn" data-r="dashboard" onclick="goDashboard()"><span class="ic">&#8962;</span> Beranda</button>
               <button class="nav-btn" data-r="studio" onclick="goStudio()"><span class="ic">&#9998;</span> Studio Latihan</button>
-              <button class="nav-btn" data-r="gallery" onclick="goGallery()"><span class="ic">&#9733;</span> Galeri Karya</button>`;
+              <button class="nav-btn" data-r="gallery" onclick="goGallery()"><span class="ic">&#9733;</span> Galeri Karya</button>
+              <button class="nav-btn" data-r="abk" onclick="openAbkSettings()"><span class="ic">🧩</span> Mode ABK</button>`;
   if(u.role==='admin'){ html += `<button class="nav-btn" data-r="admin" onclick="goAdmin()"><span class="ic">&#128202;</span> Dashboard Admin</button>`; }
   nav.innerHTML = html;
   document.getElementById('chipName').textContent = u.name;
@@ -858,7 +877,7 @@ function goLevel(moduleId, levelIndex){
   const found = findModule(moduleId); if(!found) return goDashboard();
   const {track, module} = found;
   const level = module.levels[levelIndex];
-  currentAbkMode = 'baca';
+  currentAbkMode = abkEnabledModes[0] || 'baca';
   window.__curTrack = track; window.__curLevel = level;
   let html = `<button class="back-link" onclick="goModule('${moduleId}')">&larr; Kembali ke Peta Level</button>
   <div class="lesson-wrap">
@@ -879,14 +898,18 @@ function goLevel(moduleId, levelIndex){
   renderQuiz(module, track, levelIndex, level);
 }
 
+const ABK_ALL_MODES = [
+  {id:'baca', icon:'📖', label:'Mode Baca', desc:'Penjelasan materi dengan teks lengkap.'},
+  {id:'visual', icon:'👀', label:'Mode Visual', desc:'Poin-poin materi jadi kartu ikon besar, teks lebih sedikit.'},
+  {id:'audio', icon:'🔊', label:'Mode Audio', desc:'Materi dibacakan langsung lewat suara.'},
+  {id:'praktik', icon:'🎮', label:'Mode Praktik', desc:'Langsung ke latihan tanpa membaca materi dulu.'}
+];
 function renderAbkBar(track){
-  const modes = [
-    {id:'baca', icon:'📖', label:'Mode Baca'},
-    {id:'visual', icon:'👀', label:'Mode Visual'},
-    {id:'audio', icon:'🔊', label:'Mode Audio'},
-    {id:'praktik', icon:'🎮', label:'Mode Praktik'}
-  ];
-  document.getElementById('abkBar').innerHTML = modes.map(m=>
+  const bar = document.getElementById('abkBar');
+  const modes = ABK_ALL_MODES.filter(m=>abkEnabledModes.includes(m.id));
+  if(modes.length<=1){ bar.innerHTML=''; bar.style.display='none'; return; }
+  bar.style.display='flex';
+  bar.innerHTML = modes.map(m=>
     `<button class="abk-btn ${currentAbkMode===m.id?'active':''}" onclick="switchAbkMode('${m.id}')"><span class="abk-icon">${m.icon}</span>${m.label}</button>`
   ).join('');
 }
@@ -895,6 +918,36 @@ function switchAbkMode(mode){
   currentAbkMode = mode;
   renderAbkBar(window.__curTrack);
   renderLessonContent(window.__curLevel, window.__curTrack);
+}
+
+function openAbkSettings(){
+  setActiveTab('abk');
+  document.getElementById('abkModalRoot').innerHTML = `
+    <div class="modal-backdrop" onclick="if(event.target===this) closeAbkSettings()">
+      <div class="modal-card">
+        <h3 style="margin-bottom:6px;">🧩 Mode ABK</h3>
+        <p style="font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;">Pilih satu, beberapa, atau semua mode belajar yang ingin ditampilkan di setiap level — cocok untuk disesuaikan dengan kebutuhan belajar siswa.</p>
+        <div id="abkCheckList">${ABK_ALL_MODES.map(m=>`
+          <label class="abk-check-row">
+            <input type="checkbox" value="${m.id}" ${abkEnabledModes.includes(m.id)?'checked':''}>
+            <span><span class="acr-title">${m.icon} ${m.label}</span><br><span class="acr-desc">${m.desc}</span></span>
+          </label>`).join('')}
+        </div>
+        <div style="display:flex;gap:10px;margin-top:22px;">
+          <button class="btn btn-sm" style="flex:1;" onclick="saveAbkSettings()">Simpan</button>
+          <button class="btn btn-sm btn-outline" style="flex:1;" onclick="closeAbkSettings()">Batal</button>
+        </div>
+      </div>
+    </div>`;
+}
+function closeAbkSettings(){ document.getElementById('abkModalRoot').innerHTML=''; setActiveTab(''); }
+function saveAbkSettings(){
+  const boxes = document.querySelectorAll('#abkCheckList input[type=checkbox]');
+  let selected = Array.from(boxes).filter(b=>b.checked).map(b=>b.value);
+  if(!selected.length) selected = ['baca'];
+  abkEnabledModes = selected;
+  try{ localStorage.setItem('ocs_abk_modes', JSON.stringify(selected)); }catch(e){}
+  closeAbkSettings();
 }
 
 function renderLessonContent(level, track){
@@ -1177,7 +1230,7 @@ function goStudio(){
   stopSpeech();
   setActiveTab('studio');
   let html = `<h1 class="page-title">Studio Latihan</h1>
-  <p class="page-sub">Berlatih bebas di ketiga aplikasi, tampilannya dibuat semirip mungkin dengan aplikasi Office asli. Hasil karyamu bisa disimpan ke Galeri Karya.</p>
+  <p class="page-sub">Berlatih bebas di ketiga aplikasi — ribbon-nya benar-benar bisa diklik, seperti aplikasi Office asli. Hasil karyamu bisa disimpan ke Galeri Karya.</p>
   <div class="abk-bar" id="studioTabs"></div>
   <div id="studioContent"></div>`;
   document.getElementById('viewRoot').innerHTML = html;
@@ -1186,35 +1239,183 @@ function goStudio(){
 function renderStudioTabs(active){
   const tabs = [{id:'word',icon:'📝',label:'Studio Word'},{id:'excel',icon:'📊',label:'Studio Excel'},{id:'ppt',icon:'📽️',label:'Studio PowerPoint'}];
   document.getElementById('studioTabs').innerHTML = tabs.map(t=>`<button class="abk-btn ${active===t.id?'active':''}" onclick="renderStudioTabs('${t.id}')"><span class="abk-icon">${t.icon}</span>${t.label}</button>`).join('');
+  buildStudioApp(active);
+}
+function buildStudioApp(app){
   const content = document.getElementById('studioContent');
-  if(active==='word'){
-    const inner = `<div class="toolbar">
-        <button class="tbtn" style="font-weight:800" onclick="document.execCommand('bold')">B</button>
-        <button class="tbtn" style="font-style:italic" onclick="document.execCommand('italic')">I</button>
-        <button class="tbtn" style="text-decoration:underline" onclick="document.execCommand('underline')">U</button>
-        <button class="tbtn" onclick="document.execCommand('justifyLeft')">&#8676;</button>
-        <button class="tbtn" onclick="document.execCommand('justifyCenter')">&#9776;</button>
-        <button class="tbtn" onclick="document.execCommand('insertUnorderedList')">&#8226;</button></div>
-      <div class="word-editor" id="studioWord" contenteditable="true" style="min-height:280px;">Tulis dokumen bebasmu di sini...</div>
+  const filenames = {word:'Dokumen1 - Word', excel:'BukuKerja1 - Excel', ppt:'Presentasi1 - PowerPoint'};
+  content.innerHTML = `<div class="office-window">
+    <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">${filenames[app]}</span></div>
+    <div class="office-ribbon" id="ribbon-${app}"></div>
+    <div class="office-body"><div id="toolbar-${app}"></div>${studioCanvasHtml(app)}</div>
+  </div>`;
+  setStudioRibbonTab(app, 'Home');
+}
+function studioCanvasHtml(app){
+  if(app==='word'){
+    return `<div class="word-editor" id="studioWord" contenteditable="true" style="min-height:280px;margin-top:14px;">Tulis dokumen bebasmu di sini...</div>
       <div style="margin-top:16px;"><button class="btn btn-sm btn-word" onclick="saveWork('word')">Simpan ke Galeri</button></div>`;
-    content.innerHTML = buildOfficeChrome('word', inner);
-  } else if(active==='excel'){
-    const inner = `<table class="grid-sheet" id="studioExcel"><tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+  } else if(app==='excel'){
+    return `<table class="grid-sheet" id="studioExcel" style="margin-top:14px;"><tr><th></th><th>A</th><th>B</th><th>C</th></tr>
         <tr><td class="label">1</td><td><input></td><td><input></td><td><input></td></tr>
         <tr><td class="label">2</td><td><input></td><td><input></td><td><input></td></tr>
         <tr><td class="label">3</td><td><input></td><td><input></td><td><input></td></tr>
         <tr><td class="label">4</td><td><input></td><td><input></td><td><input></td></tr>
         <tr><td class="label">5</td><td><input></td><td><input></td><td><input></td></tr></table>
+      <div class="bar-chart" id="studioBarChart" style="display:none;"></div>
+      <div id="studioFormulaResult" style="margin-top:10px;font-size:13px;color:var(--ink-soft);font-weight:600;"></div>
       <div style="margin-top:16px;"><button class="btn btn-sm btn-excel" onclick="saveWork('excel')">Simpan ke Galeri</button></div>`;
-    content.innerHTML = buildOfficeChrome('excel', inner);
   } else {
-    const inner = `<div class="slide-canvas" style="max-width:640px;"><input class="slide-title" id="studioPptTitle" value="Judul Presentasiku">
+    return `<div class="slide-canvas" id="studioSlideCanvas" style="max-width:640px;margin-top:14px;"><input class="slide-title" id="studioPptTitle" value="Judul Presentasiku">
       <textarea class="slide-body" id="studioPptBody" rows="4">Poin pertama
 Poin kedua
-Poin ketiga</textarea></div>
+Poin ketiga</textarea>
+      <div id="studioMediaRow" style="display:flex;gap:8px;margin-top:8px;font-size:22px;"></div></div>
       <div style="margin-top:16px;"><button class="btn btn-sm btn-ppt" onclick="saveWork('ppt')">Simpan ke Galeri</button></div>`;
-    content.innerHTML = buildOfficeChrome('ppt', inner);
   }
+}
+function setStudioRibbonTab(app, tab){
+  document.getElementById('ribbon-'+app).innerHTML = studioRibbonHtml(app, tab);
+  document.getElementById('toolbar-'+app).innerHTML = studioToolbarHtml(app, tab);
+}
+function studioRibbonHtml(app, activeTab){
+  const tabsMap = { word:['Home','Insert','Layout','Review'], excel:['Home','Insert','Formulas','Data'], ppt:['Home','Insert','Design','Transitions'] };
+  const rtClass = app==='word'?'rt-word':app==='excel'?'rt-excel':'rt-ppt';
+  return tabsMap[app].map(t=>`<span class="rtab-fake clickable ${activeTab===t?'active '+rtClass:''}" onclick="setStudioRibbonTab('${app}','${t}')">${t}</span>`).join('');
+}
+function studioToolbarHtml(app, tab){
+  if(app==='word') return wordToolbarHtml(tab);
+  if(app==='excel') return excelToolbarHtml(tab);
+  return pptToolbarHtml(tab);
+}
+function wordToolbarHtml(tab){
+  if(tab==='Home'){
+    return `<div class="toolbar">
+      <button class="tbtn" style="font-weight:800" onclick="document.execCommand('bold')">B</button>
+      <button class="tbtn" style="font-style:italic" onclick="document.execCommand('italic')">I</button>
+      <button class="tbtn" style="text-decoration:underline" onclick="document.execCommand('underline')">U</button>
+      <button class="tbtn" onclick="document.execCommand('justifyLeft')">&#8676;</button>
+      <button class="tbtn" onclick="document.execCommand('justifyCenter')">&#9776;</button>
+      <button class="tbtn" onclick="document.execCommand('insertUnorderedList')">&#8226;</button>
+      <button class="tbtn" onclick="document.execCommand('insertOrderedList')">1.</button></div>`;
+  } else if(tab==='Insert'){
+    return `<div class="toolbar">
+      <button class="tbtn wide" onclick="insertIntoStudioWord('img')">+ Gambar</button>
+      <button class="tbtn wide" onclick="insertStudioTable()">+ Tabel</button>
+      <button class="tbtn wide" onclick="insertIntoStudioWord('shape')">+ Bentuk</button></div>`;
+  } else if(tab==='Layout'){
+    return `<div class="layout-picks">
+      <button class="layout-pick active" id="swOrPotret" onclick="setStudioWordOrient('potret')">Potret</button>
+      <button class="layout-pick" id="swOrLanskap" onclick="setStudioWordOrient('lanskap')">Lanskap</button></div>
+      <label style="font-size:12px;color:var(--ink-soft);font-weight:600;display:block;margin-top:10px;">Margin Halaman</label>
+      <input type="range" min="8" max="48" value="16" oninput="document.getElementById('studioWord').style.padding=this.value+'px'">`;
+  } else {
+    return `<button class="tbtn wide" onclick="studioWordCount()">&#128203; Hitung Kata</button> <span id="studioWordCountResult" style="font-size:13px;color:var(--ink-soft);font-weight:600;margin-left:8px;"></span>`;
+  }
+}
+function insertIntoStudioWord(kind){
+  const ed = document.getElementById('studioWord'); ed.focus();
+  let html = ' <span style="background:var(--word-soft);color:var(--word);padding:3px 10px;border-radius:8px;font-size:12.5px;font-weight:700;">&#128247; Gambar</span> ';
+  if(kind==='shape') html = ' <span style="background:var(--ppt-soft);color:var(--ppt);padding:3px 10px;border-radius:8px;font-size:12.5px;font-weight:700;">&#9733; Bentuk</span> ';
+  document.execCommand('insertHTML', false, html);
+}
+function insertStudioTable(){
+  const ed = document.getElementById('studioWord'); ed.focus();
+  document.execCommand('insertHTML', false, '<table style="border-collapse:collapse;margin:8px 0;"><tr><td style="border:1px solid #ccc;padding:6px 10px;">Sel 1</td><td style="border:1px solid #ccc;padding:6px 10px;">Sel 2</td></tr></table>');
+}
+function setStudioWordOrient(mode){
+  document.getElementById('swOrPotret').classList.toggle('active', mode==='potret');
+  document.getElementById('swOrLanskap').classList.toggle('active', mode==='lanskap');
+  document.getElementById('studioWord').style.maxWidth = mode==='lanskap' ? '100%' : '620px';
+}
+function studioWordCount(){
+  const txt = document.getElementById('studioWord').innerText.trim();
+  const n = txt ? txt.split(/\s+/).filter(Boolean).length : 0;
+  document.getElementById('studioWordCountResult').textContent = n + ' kata';
+}
+function excelToolbarHtml(tab){
+  if(tab==='Home'){
+    return `<div class="toolbar">
+      <button class="tbtn wide" onclick="toggleStudioExcelFmt('rupiah')">Rp Format Angka</button>
+      <button class="tbtn wide" onclick="toggleStudioExcelFmt('fill')">Warna Isi</button>
+      <button class="tbtn wide" onclick="toggleStudioExcelFmt('border')">Border Tebal</button></div>`;
+  } else if(tab==='Insert'){
+    return `<button class="tbtn wide" onclick="toggleStudioChart()">&#128202; Sisipkan/Tutup Grafik dari Kolom B</button>`;
+  } else if(tab==='Formulas'){
+    return `<div class="toolbar">
+      <button class="tbtn wide" onclick="studioCalc('sum')">=SUM(B)</button>
+      <button class="tbtn wide" onclick="studioCalc('avg')">=AVERAGE(B)</button></div>`;
+  } else {
+    return `<div class="toolbar">
+      <button class="tbtn wide" onclick="studioSort('asc')">Urutkan A-Z</button>
+      <button class="tbtn wide" onclick="studioSort('desc')">Urutkan Z-A</button></div>`;
+  }
+}
+function toggleStudioExcelFmt(kind){
+  const table = document.getElementById('studioExcel');
+  if(kind==='rupiah'){ table.querySelectorAll('td:not(.label) input').forEach(i=>{ if(i.dataset.rupiah==='1'){ i.value=i.value.replace('Rp ',''); i.dataset.rupiah='0'; } else { i.value='Rp '+i.value; i.dataset.rupiah='1'; } }); }
+  else if(kind==='fill'){ table.classList.toggle('fmt-fill'); table.querySelectorAll('td:not(.label)').forEach(td=>td.style.background = table.classList.contains('fmt-fill') ? 'var(--excel-soft)' : ''); }
+  else if(kind==='border'){ table.classList.toggle('fmt-border'); table.querySelectorAll('td,th').forEach(td=>td.style.border = table.classList.contains('fmt-border') ? '2px solid var(--ink)' : '1px solid var(--line)'); }
+}
+function toggleStudioChart(){
+  const chart = document.getElementById('studioBarChart');
+  if(chart.style.display !== 'none'){ chart.style.display='none'; return; }
+  const inputs = document.querySelectorAll('#studioExcel tr td:nth-child(3) input');
+  const nums = Array.from(inputs).map(i=>Number(i.value||0));
+  const max = Math.max(...nums,1);
+  chart.innerHTML = nums.map(v=>{ const h = Math.round((v/max)*100); return `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;"><div class="bar" style="height:${h}%;"></div></div>`; }).join('');
+  chart.style.display='flex';
+}
+function studioCalc(op){
+  const inputs = document.querySelectorAll('#studioExcel tr td:nth-child(3) input');
+  const nums = Array.from(inputs).map(i=>Number(i.value||0)).filter(n=>!isNaN(n));
+  let result;
+  if(op==='sum') result = nums.reduce((a,b)=>a+b,0);
+  else result = nums.length ? (nums.reduce((a,b)=>a+b,0)/nums.length).toFixed(1) : 0;
+  document.getElementById('studioFormulaResult').textContent = (op==='sum' ? 'Hasil =SUM(kolom B): ' : 'Hasil =AVERAGE(kolom B): ') + result;
+}
+function studioSort(dir){
+  const table = document.getElementById('studioExcel');
+  const rows = Array.from(table.rows).slice(1);
+  const data = rows.map(r=>Array.from(r.querySelectorAll('input')).map(i=>i.value));
+  data.sort((a,b)=> dir==='asc' ? (a[0]||'').localeCompare(b[0]||'') : (b[0]||'').localeCompare(a[0]||''));
+  rows.forEach((r,i)=>{ const ins = r.querySelectorAll('input'); ins.forEach((inp,ci)=>{ inp.value = data[i][ci]||''; }); });
+}
+function pptToolbarHtml(tab){
+  if(tab==='Home'){
+    return `<span style="font-size:12.5px;color:var(--ink-soft);font-weight:600;">Edit judul & isi langsung di slide di bawah ini.</span>`;
+  } else if(tab==='Insert'){
+    return `<div class="toolbar">
+      <button class="tbtn wide" onclick="addStudioMedia('&#128247;')">+ Foto</button>
+      <button class="tbtn wide" onclick="addStudioMedia('&#127916;')">+ Video</button>
+      <button class="tbtn wide" onclick="addStudioMedia('&#128202;')">+ Ikon</button></div>`;
+  } else if(tab==='Design'){
+    return `<div class="swatch-row">
+      <div class="swatch active" style="background:var(--ppt)" onclick="setStudioSlideAccent('#FF5A36',this)"></div>
+      <div class="swatch" style="background:var(--word)" onclick="setStudioSlideAccent('#2E5FF2',this)"></div>
+      <div class="swatch" style="background:var(--excel)" onclick="setStudioSlideAccent('#0FA971',this)"></div>
+      <div class="swatch" style="background:#7C5CFC" onclick="setStudioSlideAccent('#7C5CFC',this)"></div></div>`;
+  } else {
+    return `<div class="layout-picks">
+      <button class="layout-pick active" onclick="playStudioTransition('fade',this)">Fade</button>
+      <button class="layout-pick" onclick="playStudioTransition('zoom',this)">Zoom</button>
+      <button class="layout-pick" onclick="playStudioTransition('slide',this)">Slide/Push</button></div>`;
+  }
+}
+function addStudioMedia(icon){ document.getElementById('studioMediaRow').innerHTML += icon + ' '; }
+function setStudioSlideAccent(color, el){
+  document.querySelectorAll('#toolbar-ppt .swatch').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('studioSlideCanvas').style.borderTopColor = color;
+  document.getElementById('studioPptTitle').style.color = color;
+}
+function playStudioTransition(type, el){
+  document.querySelectorAll('#toolbar-ppt .layout-pick').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const canvas = document.getElementById('studioSlideCanvas');
+  canvas.classList.remove('slide-fade','slide-zoom','slide-slide');
+  void canvas.offsetWidth;
+  canvas.classList.add('slide-'+type);
 }
 function saveWork(type){
   const u = currentUser(); let content='', label='';
