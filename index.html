@@ -22,10 +22,18 @@
     --bg:#FAFAFC; --surface:#FFFFFF; --surface-2:#F1F1F8; --ink:#15161C; --ink-soft:#6B6C7A; --line:#E7E7F0;
     --word:#2E5FF2; --word-soft:#EAF0FF; --excel:#0FA971; --excel-soft:#E3FBF1; --ppt:#FF5A36; --ppt-soft:#FFECE4;
     --violet:#7C5CFC; --violet-soft:#F1EDFF; --radius:16px; --radius-sm:10px;
+    --dot-a:radial-gradient(circle, rgba(46,95,242,.10) 1.2px, transparent 1.2px);
   }
+  html[data-theme="dark"]{
+    --bg:#12131B; --surface:#1B1C27; --surface-2:#242533; --ink:#F1F1F7; --ink-soft:#9A9BB0; --line:#33344A;
+    --word:#5B84FF; --word-soft:#20263F; --excel:#2FD196; --excel-soft:#183328; --ppt:#FF7A57; --ppt-soft:#3A2318;
+    --violet:#9C87FF; --violet-soft:#2A2440;
+    --dot-a:radial-gradient(circle, rgba(91,132,255,.14) 1.2px, transparent 1.2px);
+  }
+  body{background-image:var(--dot-a);background-size:22px 22px;}
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  body{background-color:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;transition:background-color .2s, color .2s;}
   h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;margin:0;color:var(--ink);letter-spacing:-0.01em;}
   button{font-family:'Inter',sans-serif;cursor:pointer;}
   input,select,textarea{font-family:'Inter',sans-serif;}
@@ -67,7 +75,7 @@
   .auth-switch button.active{background:var(--ink);color:#fff;}
   .field{margin-bottom:16px;}
   .field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:7px;}
-  .field input, .field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--radius-sm);font-size:14px;background:#fff;color:var(--ink);}
+  .field input, .field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--radius-sm);font-size:14px;background:var(--surface);color:var(--ink);}
   .field input:focus, .field select:focus, textarea:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 4px var(--violet-soft);}
   .auth-error{color:var(--ppt);font-size:13px;margin-bottom:12px;min-height:0;font-weight:600;}
   .auth-note{font-size:12px;color:var(--ink-soft);margin-top:20px;line-height:1.6;}
@@ -124,7 +132,7 @@
 
   .level-path{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:30px;}
   .level-chip-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:96px;}
-  .level-chip{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;border:2px solid var(--line);background:#fff;color:var(--ink-soft);position:relative;transition:transform .15s;}
+  .level-chip{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;border:2px solid var(--line);background:var(--surface);color:var(--ink-soft);position:relative;transition:transform .15s;}
   .level-chip-wrap.clickable{cursor:pointer;}
   .level-chip-wrap.clickable:hover .level-chip{transform:translateY(-2px);}
   .level-chip.locked{opacity:.4;}
@@ -148,10 +156,10 @@
 
   .practice-box{border:1.5px dashed var(--line);border-radius:var(--radius-sm);padding:18px;margin-top:18px;background:var(--surface-2);}
   .toolbar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center;}
-  .tbtn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:14px;}
+  .tbtn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;}
   .tbtn.wide{width:auto;padding:0 12px;font-size:12.5px;}
   .tbtn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
-  .mini-select{padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:12.5px;background:#fff;}
+  .mini-select{padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:12.5px;background:var(--surface);color:var(--ink);}
   .word-editor{min-height:120px;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:16px;font-size:15px;line-height:1.7;}
   .word-editor:focus{outline:none;border-color:var(--word);}
 
@@ -167,7 +175,7 @@
   .slide-canvas textarea.slide-body{border:none;font-size:14px;color:var(--ink-soft);resize:none;background:transparent;line-height:1.6;}
   .slide-canvas input:focus, .slide-canvas textarea:focus{outline:none;}
   .layout-picks{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
-  .layout-pick{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--ink-soft);}
+  .layout-pick{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--ink-soft);}
   .layout-pick.active{border-color:var(--ppt);color:var(--ppt);background:var(--ppt-soft);}
   .swatch-row{display:flex;gap:8px;margin-top:12px;}
   .swatch{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);}
@@ -186,7 +194,7 @@
 
   .quiz-q{margin-bottom:22px;}
   .quiz-q .qtext{font-weight:700;margin-bottom:10px;font-size:14.5px;}
-  .quiz-opt{display:block;width:100%;text-align:left;padding:12px 15px;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:#fff;margin-bottom:9px;font-size:14px;}
+  .quiz-opt{display:block;width:100%;text-align:left;padding:12px 15px;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);margin-bottom:9px;font-size:14px;}
   .quiz-opt:hover{border-color:var(--ink);}
   .quiz-opt.correct{border-color:var(--excel);background:var(--excel-soft);}
   .quiz-opt.wrong{border-color:var(--ppt);background:var(--ppt-soft);}
@@ -210,10 +218,55 @@
 
   .back-link{background:none;border:none;color:var(--ink-soft);font-size:13px;margin-bottom:18px;display:inline-flex;align-items:center;gap:6px;font-weight:600;}
   .back-link:hover{color:var(--ink);}
+
+  /* Theme toggle */
+  .theme-toggle{display:flex;background:var(--surface-2);border-radius:999px;padding:3px;gap:2px;margin-bottom:14px;}
+  .theme-toggle button{flex:1;background:none;border:none;padding:8px 0;border-radius:999px;font-size:12px;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;gap:5px;}
+  .theme-toggle button.active{background:var(--ink);color:var(--surface);}
+
+  /* ABK mode selector */
+  .abk-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .abk-btn{background:var(--surface-2);border:1.5px solid transparent;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .abk-btn.active{background:var(--surface);border-color:var(--ink);color:var(--ink);box-shadow:0 4px 12px rgba(20,21,30,.08);}
+  .abk-icon{font-size:16px;}
+  .visual-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin:14px 0;}
+  .visual-item{background:var(--surface-2);border-radius:var(--radius-sm);padding:16px 10px;text-align:center;}
+  .visual-item .vi-icon{font-size:32px;margin-bottom:8px;display:block;}
+  .visual-item .vi-text{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.4;}
+  .visual-intro{font-size:16px;font-weight:700;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;}
+  .audio-panel{display:flex;align-items:center;gap:16px;background:var(--surface-2);border-radius:var(--radius-sm);padding:20px;margin-bottom:16px;}
+  .audio-play-btn{width:56px;height:56px;border-radius:50%;border:none;background:var(--violet);color:#fff;font-size:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .audio-status{font-size:13px;color:var(--ink-soft);font-weight:600;}
+  .audio-text{font-size:16px;line-height:1.8;background:var(--surface-2);border-radius:var(--radius-sm);padding:18px;}
+  .praktik-box{background:var(--surface-2);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:6px;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600;}
+  .praktik-box .pb-icon{font-size:26px;}
+
+  /* Office-like chrome for practice widgets */
+  .office-window{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);}
+  .office-titlebar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:#2B2C38;}
+  html[data-theme="dark"] .office-titlebar{background:#0D0E15;}
+  .tl-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .tl-dot.r{background:#FF5F57;} .tl-dot.y{background:#FEBC2E;} .tl-dot.g{background:#28C840;}
+  .office-filename{color:#C6C7D6;font-size:12px;font-weight:600;margin-left:6px;}
+  .office-ribbon{display:flex;gap:2px;padding:0 10px;background:var(--surface-2);border-bottom:1px solid var(--line);overflow-x:auto;}
+  .rtab-fake{padding:9px 14px;font-size:12.5px;font-weight:700;color:var(--ink-soft);border-bottom:3px solid transparent;white-space:nowrap;}
+  .rtab-fake.active{color:var(--ink);}
+  .rtab-fake.active.rt-word{border-color:var(--word);color:var(--word);}
+  .rtab-fake.active.rt-excel{border-color:var(--excel);color:var(--excel);}
+  .rtab-fake.active.rt-ppt{border-color:var(--ppt);color:var(--ppt);}
+  .office-formulabar{display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--surface);border-bottom:1px solid var(--line);font-size:12.5px;}
+  .cellref-box{border:1px solid var(--line);border-radius:5px;padding:4px 10px;font-weight:700;color:var(--ink);min-width:42px;text-align:center;background:var(--surface-2);}
+  .fx-icon{font-style:italic;color:var(--ink-soft);font-weight:700;}
+  .office-body{padding:18px;}
+  .slide-thumbs{display:flex;gap:8px;padding:10px 12px;background:var(--surface-2);border-bottom:1px solid var(--line);overflow-x:auto;}
+  .thumb{width:46px;height:30px;border-radius:4px;background:var(--surface);border:2px solid var(--line);flex-shrink:0;}
+  .thumb.active{border-color:var(--ppt);}
+
   @media (max-width:600px){.auth-hero h1{font-size:32px;} .lesson-card{padding:22px;}}
 </style>
 </head>
 <body>
+<script>(function(){ try{ const t = localStorage.getItem('ocs_theme') || 'light'; document.documentElement.setAttribute('data-theme', t); }catch(e){} })();</script>
 
 <div id="screen-auth">
   <div class="auth-hero">
@@ -260,6 +313,10 @@
       <div class="brand"><span class="sq"></span>OfficeCraft</div>
       <div class="nav" id="navList"></div>
       <div class="side-foot">
+        <div class="theme-toggle" id="themeToggle">
+          <button id="themeLightBtn" onclick="setTheme('light')">☀️ Terang</button>
+          <button id="themeDarkBtn" onclick="setTheme('dark')">🌙 Gelap</button>
+        </div>
         <div class="user-box">
           <div class="uname" id="chipName">-</div>
           <div class="urole" id="chipRole">Siswa</div>
@@ -289,13 +346,12 @@
    ========================================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAwABtavcBrSTYRL9mlmHM01z_fbz2wkiA",
-  authDomain: "officecraft-studio.firebaseapp.com",
-  projectId: "officecraft-studio",
-  storageBucket: "officecraft-studio.firebasestorage.app",
-  messagingSenderId: "625737188043",
-  appId: "1:625737188043:web:acea90962a0964a5eb514e",
-  measurementId: "G-5TGEYWHVC3"
+  apiKey: "GANTI_DENGAN_API_KEY_FIREBASE_MU",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
+  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
+  appId: "GANTI_DENGAN_APP_ID"
 };
 
 let fbReady = false;
@@ -329,6 +385,19 @@ const DB = {
 };
 let session = null;
 let currentUserData = null;
+let currentAbkMode = 'baca';
+
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  try{ localStorage.setItem('ocs_theme', t); }catch(e){}
+  const lb = document.getElementById('themeLightBtn'), db = document.getElementById('themeDarkBtn');
+  if(lb && db){ lb.classList.toggle('active', t==='light'); db.classList.toggle('active', t==='dark'); }
+}
+function syncThemeButtons(){
+  const t = document.documentElement.getAttribute('data-theme') || 'light';
+  setTheme(t);
+}
+function stopSpeech(){ try{ window.speechSynthesis.cancel(); }catch(e){} }
 
 function L(title, lesson, q1, q2){ return {title, lesson, quiz:[q1,q2]}; }
 function Q(q, opts, correct){ return {q, opts, correct}; }
@@ -702,6 +771,7 @@ function saveCurrentUser(u){ currentUserData = u; DB.saveUser(u).catch(e=>consol
 function enterApp(){
   document.getElementById('screen-auth').style.display='none';
   document.getElementById('screen-app').style.display='block';
+  syncThemeButtons();
   renderNav(); goDashboard();
 }
 function renderNav(){
@@ -720,6 +790,7 @@ function renderNav(){
 function setActiveTab(name){ document.querySelectorAll('#navList button').forEach(b=>b.classList.toggle('active', b.dataset.r===name)); }
 
 function goDashboard(){
+  stopSpeech();
   setActiveTab('dashboard');
   const u = currentUser();
   let doneLevels=0; const totalLevels = totalLevelCount();
@@ -747,6 +818,7 @@ function goDashboard(){
 }
 
 function goModule(id){
+  stopSpeech();
   setActiveTab('');
   const found = findModule(id); if(!found) return goDashboard();
   const {track, module} = found;
@@ -770,26 +842,116 @@ function goModule(id){
   document.getElementById('viewRoot').innerHTML = html;
 }
 
+function stripTags(html){ const d = document.createElement('div'); d.innerHTML = html; return d.textContent.replace(/\s+/g,' ').trim(); }
+function extractParts(html){
+  const d = document.createElement('div'); d.innerHTML = html;
+  const intro = d.querySelector('p') ? d.querySelector('p').textContent.trim() : '';
+  const items = Array.from(d.querySelectorAll('li')).map(li=>li.textContent.trim());
+  return {intro, items};
+}
+const ABK_ICONS = ['📌','✨','🔑','💡','⭐','🎯','📍','🔎'];
+
 function goLevel(moduleId, levelIndex){
+  stopSpeech();
   setActiveTab('');
   const found = findModule(moduleId); if(!found) return goDashboard();
   const {track, module} = found;
   const level = module.levels[levelIndex];
+  currentAbkMode = 'baca';
+  window.__curTrack = track; window.__curLevel = level;
   let html = `<button class="back-link" onclick="goModule('${moduleId}')">&larr; Kembali ke Peta Level</button>
   <div class="lesson-wrap">
     <div class="lesson-card">
       <span class="step-badge ${track.tag}">${track.label.toUpperCase()}</span>
       <span class="step-badge" style="background:var(--surface-2);color:var(--ink-soft);">LEVEL ${levelIndex+1}/5</span>
-      <h3>${level.title}</h3>${level.lesson}
+      <h3 style="margin-bottom:16px;">${level.title}</h3>
+      <div class="abk-bar" id="abkBar"></div>
+      <div id="lessonContent"></div>
       <div class="practice-box" id="practiceBox"></div>
     </div>
     <div class="lesson-card quiz-card"><h3>Uji Pemahaman</h3><div id="quizArea"></div></div>
   </div>`;
   document.getElementById('viewRoot').innerHTML = html;
-  renderPractice(module);
+  renderAbkBar(track);
+  renderLessonContent(level, track);
+  renderPractice(module, track);
   renderQuiz(module, track, levelIndex, level);
 }
 
+function renderAbkBar(track){
+  const modes = [
+    {id:'baca', icon:'📖', label:'Mode Baca'},
+    {id:'visual', icon:'👀', label:'Mode Visual'},
+    {id:'audio', icon:'🔊', label:'Mode Audio'},
+    {id:'praktik', icon:'🎮', label:'Mode Praktik'}
+  ];
+  document.getElementById('abkBar').innerHTML = modes.map(m=>
+    `<button class="abk-btn ${currentAbkMode===m.id?'active':''}" onclick="switchAbkMode('${m.id}')"><span class="abk-icon">${m.icon}</span>${m.label}</button>`
+  ).join('');
+}
+function switchAbkMode(mode){
+  stopSpeech();
+  currentAbkMode = mode;
+  renderAbkBar(window.__curTrack);
+  renderLessonContent(window.__curLevel, window.__curTrack);
+}
+
+function renderLessonContent(level, track){
+  const el = document.getElementById('lessonContent');
+  const parts = extractParts(level.lesson);
+  if(currentAbkMode==='baca'){
+    el.innerHTML = level.lesson;
+  } else if(currentAbkMode==='visual'){
+    let cardsHtml = parts.items.map((t,i)=>`<div class="visual-item"><span class="vi-icon">${ABK_ICONS[i%ABK_ICONS.length]}</span><span class="vi-text">${t}</span></div>`).join('');
+    el.innerHTML = `<div class="visual-intro">${parts.intro}</div><div class="visual-grid">${cardsHtml}</div>`;
+  } else if(currentAbkMode==='audio'){
+    const fullText = stripTags(level.lesson);
+    el.innerHTML = `<div class="audio-panel">
+        <button class="audio-play-btn" id="audioBtn" onclick="toggleAudio()">▶</button>
+        <div><div style="font-weight:700;margin-bottom:3px;">Dengarkan Materi</div><div class="audio-status" id="audioStatus">Klik untuk mulai membacakan</div></div>
+      </div>
+      <div class="audio-text">${level.lesson}</div>`;
+    window.__audioText = fullText;
+  } else if(currentAbkMode==='praktik'){
+    el.innerHTML = `<div class="praktik-box"><span class="pb-icon">🎮</span>Langsung coba latihannya di bawah ini — kamu bisa buka Mode Baca kapan saja kalau butuh penjelasan.</div>`;
+  }
+}
+let audioPlaying = false;
+function toggleAudio(){
+  const btn = document.getElementById('audioBtn'); const status = document.getElementById('audioStatus');
+  if(audioPlaying){ stopSpeech(); audioPlaying=false; btn.textContent='▶'; status.textContent='Klik untuk mulai membacakan'; return; }
+  try{
+    const u = new SpeechSynthesisUtterance(window.__audioText || '');
+    u.lang='id-ID'; u.rate=0.95;
+    u.onend = ()=>{ audioPlaying=false; if(btn){btn.textContent='▶';} if(status){status.textContent='Selesai. Klik untuk mengulang.';} };
+    window.speechSynthesis.speak(u);
+    audioPlaying=true; btn.textContent='⏸'; status.textContent='Sedang membacakan...';
+  }catch(e){ status.textContent='Browser ini belum mendukung audio.'; }
+}
+
+function buildOfficeChrome(app, innerHtml){
+  if(app==='word'){
+    return `<div class="office-window">
+      <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">Dokumen1 - Word</span></div>
+      <div class="office-ribbon"><span class="rtab-fake active rt-word">Home</span><span class="rtab-fake">Insert</span><span class="rtab-fake">Layout</span><span class="rtab-fake">Review</span></div>
+      <div class="office-body">${innerHtml}</div>
+    </div>`;
+  } else if(app==='excel'){
+    return `<div class="office-window">
+      <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">BukuKerja1 - Excel</span></div>
+      <div class="office-ribbon"><span class="rtab-fake active rt-excel">Home</span><span class="rtab-fake">Insert</span><span class="rtab-fake">Formulas</span><span class="rtab-fake">Data</span></div>
+      <div class="office-formulabar"><span class="cellref-box">A1</span><span class="fx-icon">fx</span><span style="color:var(--ink-soft);">Klik salah satu sel di bawah untuk mengedit</span></div>
+      <div class="office-body">${innerHtml}</div>
+    </div>`;
+  } else {
+    return `<div class="office-window">
+      <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">Presentasi1 - PowerPoint</span></div>
+      <div class="office-ribbon"><span class="rtab-fake active rt-ppt">Home</span><span class="rtab-fake">Insert</span><span class="rtab-fake">Design</span><span class="rtab-fake">Transitions</span></div>
+      <div class="slide-thumbs"><div class="thumb active"></div><div class="thumb"></div><div class="thumb"></div></div>
+      <div class="office-body">${innerHtml}</div>
+    </div>`;
+  }
+}
 function renderPractice(module){
   const box = document.getElementById('practiceBox');
   const pt = module.practiceType;
@@ -916,14 +1078,17 @@ function renderPractice(module){
   } else if(pt==='ppt-theme'){
     box.innerHTML = `<div class="slide-canvas" id="themeSlide" style="background:#F7F7FF;"><input class="slide-title" value="Tema Presentasi"><textarea class="slide-body" rows="2">Semua slide memakai tema yang sama.</textarea></div>
       <div class="swatch-row">
-        <div class="swatch active" style="background:#F7F7FF;box-shadow:0 0 0 1.5px var(--line);" onclick="setTheme('#F7F7FF','#15161C',this)"></div>
-        <div class="swatch" style="background:#14151F" onclick="setTheme('#14151F','#FFFFFF',this)"></div>
-        <div class="swatch" style="background:#EAF0FF" onclick="setTheme('#EAF0FF','#2E5FF2',this)"></div>
-        <div class="swatch" style="background:#E3FBF1" onclick="setTheme('#E3FBF1','#0FA971',this)"></div></div>`;
+        <div class="swatch active" style="background:#F7F7FF;box-shadow:0 0 0 1.5px var(--line);" onclick="setSlideTheme('#F7F7FF','#15161C',this)"></div>
+        <div class="swatch" style="background:#14151F" onclick="setSlideTheme('#14151F','#FFFFFF',this)"></div>
+        <div class="swatch" style="background:#EAF0FF" onclick="setSlideTheme('#EAF0FF','#2E5FF2',this)"></div>
+        <div class="swatch" style="background:#E3FBF1" onclick="setSlideTheme('#E3FBF1','#0FA971',this)"></div></div>`;
   } else if(pt==='ppt-checklist'){
     const items = ['Sudah berlatih presentasi sebelum tampil','Menjaga kontak mata dengan audiens','Berbicara dengan kecepatan yang jelas','Tidak membaca slide kata demi kata','Siap menjawab pertanyaan audiens dengan jujur'];
     box.innerHTML = items.map((t,i)=>`<div class="checklist-item"><input type="checkbox" id="ck${i}"><label for="ck${i}">${t}</label></div>`).join('');
   }
+  const appType = pt.startsWith('word') ? 'word' : pt.startsWith('excel') ? 'excel' : 'ppt';
+  box.innerHTML = buildOfficeChrome(appType, box.innerHTML);
+  if(pt==='excel-chart'){ recalcChart(); }
 }
 
 function addWordRow(){ const t = document.getElementById('wordTable'); const row = t.insertRow(-1); row.innerHTML = '<td><input></td><td><input></td><td><input></td>'; }
@@ -967,7 +1132,7 @@ function playTransition(type, el){
   document.querySelectorAll('#practiceBox .layout-pick').forEach(b=>b.classList.remove('active')); el.classList.add('active');
   const slide = document.getElementById('transSlide'); slide.classList.remove('slide-fade','slide-zoom','slide-slide'); void slide.offsetWidth; slide.classList.add('slide-'+type);
 }
-function setTheme(bg, ink, el){ document.querySelectorAll('.swatch-row .swatch').forEach(s=>s.classList.remove('active')); el.classList.add('active'); const slide = document.getElementById('themeSlide'); slide.style.background = bg; slide.style.borderTopColor = ink; slide.querySelector('.slide-title').style.color = ink; }
+function setSlideTheme(bg, ink, el){ document.querySelectorAll('.swatch-row .swatch').forEach(s=>s.classList.remove('active')); el.classList.add('active'); const slide = document.getElementById('themeSlide'); slide.style.background = bg; slide.style.borderTopColor = ink; slide.querySelector('.slide-title').style.color = ink; }
 
 function renderQuiz(module, track, levelIndex, level){
   const area = document.getElementById('quizArea');
@@ -1008,31 +1173,47 @@ function renderQuiz(module, track, levelIndex, level){
 }
 
 function goStudio(){
+  stopSpeech();
   setActiveTab('studio');
   let html = `<h1 class="page-title">Studio Latihan</h1>
-  <p class="page-sub">Berlatih bebas di ketiga aplikasi. Hasil karyamu bisa disimpan ke Galeri Karya.</p>
-  <div class="studio-grid">
-    <div class="studio-card c-word"><h3>Studio Word</h3><p>Latihan menulis dan memformat dokumen bebas.</p>
-      <div class="toolbar">
+  <p class="page-sub">Berlatih bebas di ketiga aplikasi, tampilannya dibuat semirip mungkin dengan aplikasi Office asli. Hasil karyamu bisa disimpan ke Galeri Karya.</p>
+  <div class="abk-bar" id="studioTabs"></div>
+  <div id="studioContent"></div>`;
+  document.getElementById('viewRoot').innerHTML = html;
+  renderStudioTabs('word');
+}
+function renderStudioTabs(active){
+  const tabs = [{id:'word',icon:'📝',label:'Studio Word'},{id:'excel',icon:'📊',label:'Studio Excel'},{id:'ppt',icon:'📽️',label:'Studio PowerPoint'}];
+  document.getElementById('studioTabs').innerHTML = tabs.map(t=>`<button class="abk-btn ${active===t.id?'active':''}" onclick="renderStudioTabs('${t.id}')"><span class="abk-icon">${t.icon}</span>${t.label}</button>`).join('');
+  const content = document.getElementById('studioContent');
+  if(active==='word'){
+    const inner = `<div class="toolbar">
         <button class="tbtn" style="font-weight:800" onclick="document.execCommand('bold')">B</button>
         <button class="tbtn" style="font-style:italic" onclick="document.execCommand('italic')">I</button>
-        <button class="tbtn" style="text-decoration:underline" onclick="document.execCommand('underline')">U</button></div>
-      <div class="word-editor" id="studioWord" contenteditable="true">Tulis dokumen bebasmu di sini...</div>
-      <div style="margin-top:14px;"><button class="btn btn-sm btn-word" onclick="saveWork('word')">Simpan ke Galeri</button></div></div>
-    <div class="studio-card c-excel"><h3>Studio Excel</h3><p>Latihan mengisi tabel data sederhana.</p>
-      <table class="grid-sheet" id="studioExcel"><tr><th></th><th>A</th><th>B</th></tr>
-        <tr><td class="label">1</td><td><input></td><td><input></td></tr>
-        <tr><td class="label">2</td><td><input></td><td><input></td></tr>
-        <tr><td class="label">3</td><td><input></td><td><input></td></tr></table>
-      <div style="margin-top:14px;"><button class="btn btn-sm btn-excel" onclick="saveWork('excel')">Simpan ke Galeri</button></div></div>
-    <div class="studio-card c-ppt"><h3>Studio PowerPoint</h3><p>Latihan menyusun satu slide presentasi.</p>
-      <div class="slide-canvas"><input class="slide-title" id="studioPptTitle" value="Judul Presentasiku">
-      <textarea class="slide-body" id="studioPptBody" rows="3">Poin pertama
+        <button class="tbtn" style="text-decoration:underline" onclick="document.execCommand('underline')">U</button>
+        <button class="tbtn" onclick="document.execCommand('justifyLeft')">&#8676;</button>
+        <button class="tbtn" onclick="document.execCommand('justifyCenter')">&#9776;</button>
+        <button class="tbtn" onclick="document.execCommand('insertUnorderedList')">&#8226;</button></div>
+      <div class="word-editor" id="studioWord" contenteditable="true" style="min-height:280px;">Tulis dokumen bebasmu di sini...</div>
+      <div style="margin-top:16px;"><button class="btn btn-sm btn-word" onclick="saveWork('word')">Simpan ke Galeri</button></div>`;
+    content.innerHTML = buildOfficeChrome('word', inner);
+  } else if(active==='excel'){
+    const inner = `<table class="grid-sheet" id="studioExcel"><tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+        <tr><td class="label">1</td><td><input></td><td><input></td><td><input></td></tr>
+        <tr><td class="label">2</td><td><input></td><td><input></td><td><input></td></tr>
+        <tr><td class="label">3</td><td><input></td><td><input></td><td><input></td></tr>
+        <tr><td class="label">4</td><td><input></td><td><input></td><td><input></td></tr>
+        <tr><td class="label">5</td><td><input></td><td><input></td><td><input></td></tr></table>
+      <div style="margin-top:16px;"><button class="btn btn-sm btn-excel" onclick="saveWork('excel')">Simpan ke Galeri</button></div>`;
+    content.innerHTML = buildOfficeChrome('excel', inner);
+  } else {
+    const inner = `<div class="slide-canvas" style="max-width:640px;"><input class="slide-title" id="studioPptTitle" value="Judul Presentasiku">
+      <textarea class="slide-body" id="studioPptBody" rows="4">Poin pertama
 Poin kedua
 Poin ketiga</textarea></div>
-      <div style="margin-top:14px;"><button class="btn btn-sm btn-ppt" onclick="saveWork('ppt')">Simpan ke Galeri</button></div></div>
-  </div>`;
-  document.getElementById('viewRoot').innerHTML = html;
+      <div style="margin-top:16px;"><button class="btn btn-sm btn-ppt" onclick="saveWork('ppt')">Simpan ke Galeri</button></div>`;
+    content.innerHTML = buildOfficeChrome('ppt', inner);
+  }
 }
 function saveWork(type){
   const u = currentUser(); let content='', label='';
@@ -1046,6 +1227,7 @@ function saveWork(type){
 }
 
 function goGallery(){
+  stopSpeech();
   setActiveTab('gallery');
   const u = currentUser();
   let html = `<h1 class="page-title">Galeri Karya</h1><p class="page-sub">Semua hasil latihan yang sudah kamu simpan dari Studio Latihan.</p>`;
@@ -1058,6 +1240,7 @@ function goGallery(){
 function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 async function goAdmin(){
+  stopSpeech();
   setActiveTab('admin');
   document.getElementById('viewRoot').innerHTML = `<h1 class="page-title">Dashboard Admin</h1><p class="page-sub">Memuat data siswa dari Firebase...</p>`;
   let allUsers;
