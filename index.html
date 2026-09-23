@@ -17,18 +17,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <style>
   :root{
     --bg:#FAFAFC; --surface:#FFFFFF; --surface-2:#F1F1F8; --ink:#15161C; --ink-soft:#6B6C7A; --line:#E7E7F0;
     --word:#2E5FF2; --word-soft:#EAF0FF; --excel:#0FA971; --excel-soft:#E3FBF1; --ppt:#FF5A36; --ppt-soft:#FFECE4;
-    --violet:#7C5CFC; --violet-soft:#F1EDFF; --radius:16px; --radius-sm:10px;
+    --violet:#0D9C94; --violet-soft:#E1F7F5; --radius:16px; --radius-sm:10px;
     --dot-a:radial-gradient(circle, rgba(46,95,242,.10) 1.2px, transparent 1.2px);
     --text-body:#3B3C46;
   }
   html[data-theme="dark"]{
     --bg:#12131B; --surface:#1B1C27; --surface-2:#242533; --ink:#F1F1F7; --ink-soft:#9A9BB0; --line:#33344A;
     --word:#5B84FF; --word-soft:#20263F; --excel:#2FD196; --excel-soft:#183328; --ppt:#FF7A57; --ppt-soft:#3A2318;
-    --violet:#9C87FF; --violet-soft:#2A2440;
+    --violet:#2DD4C7; --violet-soft:#123B38;
     --dot-a:radial-gradient(circle, rgba(91,132,255,.14) 1.2px, transparent 1.2px);
     --text-body:#D4D5E2;
   }
@@ -40,16 +41,16 @@
   button{font-family:'Inter',sans-serif;cursor:pointer;}
   input,select,textarea{font-family:'Inter',sans-serif;}
   a{color:inherit;}
-  ::selection{background:#D9CEFF;}
+  ::selection{background:#D9CEFF; color:#15161C;}
   .hidden{display:none !important;}
   .container{max-width:1120px;margin:0 auto;padding:0 28px;}
 
-  .btn{border:none;background:var(--ink);color:#fff;padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;transition:transform .15s ease, box-shadow .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.06);}
+  .btn{border:none;background:var(--ink);color:var(--surface);padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;transition:transform .15s ease, box-shadow .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.06);}
   .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.14);}
   .btn:active{transform:translateY(0);}
   .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--line);box-shadow:none;}
   .btn-outline:hover{border-color:var(--ink);box-shadow:none;}
-  .btn-word{background:var(--word);} .btn-excel{background:var(--excel);} .btn-ppt{background:var(--ppt);}
+  .btn-word{background:var(--word);color:#fff;} .btn-excel{background:var(--excel);color:#fff;} .btn-ppt{background:var(--ppt);color:#fff;}
   .btn-sm{padding:8px 16px;font-size:13px;}
   .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
 
@@ -74,7 +75,7 @@
   .auth-card{width:100%;max-width:390px;}
   .auth-switch{display:flex;background:var(--surface-2);padding:4px;border-radius:999px;margin-bottom:30px;}
   .auth-switch button{flex:1;background:none;border:none;padding:10px 0;border-radius:999px;font-weight:600;font-size:13.5px;color:var(--ink-soft);}
-  .auth-switch button.active{background:var(--ink);color:#fff;}
+  .auth-switch button.active{background:var(--ink);color:var(--surface);}
   .field{margin-bottom:16px;}
   .field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:7px;}
   .field input, .field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--radius-sm);font-size:14px;background:var(--surface);color:var(--ink);}
@@ -91,7 +92,7 @@
   .nav{display:flex;flex-direction:column;gap:4px;}
   .nav button{display:flex;align-items:center;gap:10px;text-align:left;background:none;border:none;padding:11px 14px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;color:var(--ink-soft);}
   .nav button:hover{background:var(--surface-2);color:var(--ink);}
-  .nav button.active{background:var(--ink);color:#fff;}
+  .nav button.active{background:var(--ink);color:var(--surface);}
   .nav .ic{width:18px;text-align:center;}
   .side-foot{margin-top:auto;}
   .user-box{background:var(--surface-2);border-radius:14px;padding:14px;}
@@ -145,6 +146,43 @@
   .level-chip.current.c-excel{border-color:var(--excel);color:var(--excel);box-shadow:0 0 0 5px var(--excel-soft);}
   .level-chip.current.c-ppt{border-color:var(--ppt);color:var(--ppt);box-shadow:0 0 0 5px var(--ppt-soft);}
   .level-chip-lbl{font-size:11px;font-weight:600;color:var(--ink-soft);text-align:center;line-height:1.3;}
+  .level-status-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;}
+  .level-status-tag.st-locked{background:var(--surface-2);color:var(--ink-soft);}
+  .level-status-tag.st-todo{background:var(--violet-soft);color:var(--violet);}
+  .level-status-tag.st-progress{background:#FFF3D6;color:#B8860B;}
+  html[data-theme="dark"] .level-status-tag.st-progress{background:#3A3216;color:#F0C14B;}
+  .level-status-tag.st-done{background:var(--excel-soft);color:var(--excel);}
+
+  /* Roadmap & continue card (Beranda) */
+  .continue-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:20px;border-left:5px solid var(--ink);}
+  .continue-card.c-word{border-left-color:var(--word);} .continue-card.c-excel{border-left-color:var(--excel);} .continue-card.c-ppt{border-left-color:var(--ppt);}
+  .cc-eyebrow{font-size:11px;font-weight:800;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:6px;}
+  .cc-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;margin-bottom:10px;}
+  .cc-pct{font-size:14px;color:var(--ink-soft);font-weight:600;}
+  .cc-bar-track{background:var(--surface-2);border-radius:999px;height:8px;overflow:hidden;margin-bottom:12px;}
+  .cc-bar-fill{height:100%;border-radius:999px;}
+  .cc-bar-fill.c-word{background:var(--word);} .cc-bar-fill.c-excel{background:var(--excel);} .cc-bar-fill.c-ppt{background:var(--ppt);}
+  .cc-next{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px;}
+  .roadmap-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:28px;}
+  .roadmap-track{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .roadmap-node{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .roadmap-circle{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;}
+  .roadmap-circle:before{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--surface);}
+  .roadmap-circle span{position:relative;z-index:1;font-weight:700;font-size:13px;font-family:'Space Grotesk',sans-serif;}
+  .roadmap-lbl{font-size:12px;font-weight:700;color:var(--ink-soft);}
+  .roadmap-line{flex:1;min-width:24px;height:3px;background:var(--line);border-radius:2px;}
+
+  /* Profile page */
+  .profile-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;margin-bottom:20px;}
+  .profile-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--word),var(--excel) 55%,var(--ppt));display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;font-family:'Space Grotesk',sans-serif;flex-shrink:0;}
+  .profile-head{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
+  .profile-meta{font-size:12.5px;color:var(--ink-soft);}
+  .profile-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px;}
+  .profile-stat{background:var(--surface-2);border-radius:var(--radius-sm);padding:14px 16px;}
+  .profile-stat .ps-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;}
+  .profile-stat .ps-lbl{font-size:11.5px;color:var(--ink-soft);font-weight:600;}
+  .app-progress-row{margin-bottom:14px;}
+  .app-progress-row .apr-head{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px;}
 
   .lesson-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start;}
   @media (max-width:900px){.lesson-wrap{grid-template-columns:1fr;}}
@@ -160,7 +198,7 @@
   .toolbar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center;}
   .tbtn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;}
   .tbtn.wide{width:auto;padding:0 12px;font-size:12.5px;}
-  .tbtn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .tbtn.on{background:var(--ink);color:var(--surface);border-color:var(--ink);}
   .mini-select{padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:12.5px;background:var(--surface);color:var(--ink);}
   .word-editor{min-height:120px;background:#fff;color:#15161C;border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:16px;font-size:15px;line-height:1.7;}
   .word-editor:focus{outline:none;border-color:var(--word);}
@@ -289,8 +327,9 @@
     <div class="blob blob1"></div><div class="blob blob2"></div>
     <div>
       <div class="pill-row"><span class="pill pill-w">WORD</span><span class="pill pill-e">EXCEL</span><span class="pill pill-p">POWERPOINT</span></div>
-      <h1>Kuasai Office, satu level pada satu waktu.</h1>
-      <p class="lede">18 modul, 90 level berjenjang, dan latihan interaktif langsung di browser untuk Word, Excel, dan PowerPoint.</p>
+      <h1>Belajar Office, satu keterampilan pada satu waktu.</h1>
+      <p class="lede">Buku belajar digital untuk Word, Excel, dan PowerPoint — bertahap, visual, dan menyenangkan untuk siswa SD, SMP, hingga SMPLB/SMALB.</p>
+      <div class="pill-row" style="margin-bottom:0;margin-top:2px;"><span class="pill" style="background:rgba(255,255,255,.12);">oleh Sony Putra Dewantara</span></div>
       <div class="float-cards">
         <div class="float-card"><div class="fc-num">18</div><div class="fc-lbl">Modul belajar</div></div>
         <div class="float-card"><div class="fc-num">90</div><div class="fc-lbl">Level tantangan</div></div>
@@ -349,35 +388,42 @@
 
 <script>
 /* =========================================================================
-   OfficeCraft Studio - versi online (Firebase Firestore)
+   OfficeCraft Studio 2.0 - Firebase Authentication + Firestore
    Cara mengaktifkan:
    1. Buka console.firebase.google.com -> Add project (gratis).
-   2. Di project itu, buka menu "Build > Firestore Database" -> Create database
-      -> pilih "Start in test mode" (paling mudah untuk mulai; nanti bisa
-      diperketat lewat Firestore Rules).
-   3. Buka "Project settings" (ikon gerigi) -> scroll ke "Your apps" -> klik
-      ikon web (</>) -> daftarkan app -> Firebase akan menampilkan objek
-      firebaseConfig seperti di bawah ini. Salin nilainya ke sini.
-   4. Upload ulang file ini ke GitHub / hosting. Data akun, progres, dan
-      karya siswa akan otomatis tersimpan online di Firestore, koleksi "users".
+   2. Di project itu, buka menu "Build > Authentication" -> Get started ->
+      tab "Sign-in method" -> aktifkan provider "Email/Password".
+   3. Buka "Build > Firestore Database" -> Create database -> "Start in
+      test mode", lalu isi Rules seperti di README.
+   4. Buka "Project settings" (ikon gerigi) -> scroll ke "Your apps" -> klik
+      ikon web (</>) -> daftarkan app -> salin objek firebaseConfig ke bawah ini.
+   5. Upload ulang file ini ke GitHub / hosting.
+
+   Catatan: siswa login memakai USERNAME, bukan email. Di balik layar,
+   username diubah jadi "username@officecraft.local" supaya bisa dipakai
+   Firebase Authentication tanpa perlu siswa punya email asli. Password
+   sekarang dikelola aman oleh Firebase Authentication, TIDAK lagi
+   disimpan sebagai teks biasa di Firestore.
    ========================================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAwABtavcBrSTYRL9mlmHM01z_fbz2wkiA",
-  authDomain: "officecraft-studio.firebaseapp.com",
-  projectId: "officecraft-studio",
-  storageBucket: "officecraft-studio.firebasestorage.app",
-  messagingSenderId: "625737188043",
-  appId: "1:625737188043:web:acea90962a0964a5eb514e",
-  measurementId: "G-5TGEYWHVC3"
+  apiKey: "GANTI_DENGAN_API_KEY_FIREBASE_MU",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
+  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
+  appId: "GANTI_DENGAN_APP_ID"
 };
 
 let fbReady = false;
 let fsdb = null;
+let fauth = null;
+function usernameToEmail(u){ return u.toLowerCase().trim() + '@officecraft.local'; }
 try{
   if(firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('GANTI_')){
     firebase.initializeApp(firebaseConfig);
     fsdb = firebase.firestore();
+    fauth = firebase.auth();
     fbReady = true;
   } else {
     document.addEventListener('DOMContentLoaded', ()=>{ const w=document.getElementById('fbWarning'); if(w) w.classList.remove('hidden'); });
@@ -386,14 +432,14 @@ try{
 
 const ADMIN_CODE = "OFFICE2026";
 const DB = {
-  async getUser(username){
+  async getUserByUid(uid){
     if(!fbReady) throw new Error('Firebase belum dikonfigurasi.');
-    const doc = await fsdb.collection('users').doc(username).get();
+    const doc = await fsdb.collection('users').doc(uid).get();
     return doc.exists ? doc.data() : null;
   },
   async saveUser(user){
     if(!fbReady) throw new Error('Firebase belum dikonfigurasi.');
-    await fsdb.collection('users').doc(user.username).set(user);
+    await fsdb.collection('users').doc(user.uid).set(user);
   },
   async allUsers(){
     if(!fbReady) throw new Error('Firebase belum dikonfigurasi.');
@@ -743,8 +789,15 @@ const TRACKS = [
 function findModule(id){ for(const t of TRACKS){ for(const m of t.modules){ if(m.id===id) return {track:t, module:m}; } } return null; }
 function totalModuleCount(){ return TRACKS.reduce((a,t)=>a+t.modules.length,0); }
 function totalLevelCount(){ return totalModuleCount()*5; }
-function getProg(u, moduleId){ return u.progress[moduleId] || {levels:[false,false,false,false,false], bonusGiven:false}; }
+function getProg(u, moduleId){ return u.progress[moduleId] || {levels:[false,false,false,false,false], visited:[false,false,false,false,false], bonusGiven:false}; }
 function doneLevelsCount(u, module){ const p = getProg(u, module.id); return p.levels.filter(Boolean).length; }
+function levelStatus(prog, i){
+  const unlocked = i===0 || prog.levels[i-1];
+  if(!unlocked) return 'locked';
+  if(prog.levels[i]) return 'done';
+  if(prog.visited && prog.visited[i]) return 'progress';
+  return 'todo';
+}
 
 function switchAuth(which){
   document.getElementById('tabLogin').classList.toggle('active', which==='login');
@@ -762,29 +815,59 @@ async function doRegister(){
   const err = document.getElementById('regError'); err.textContent='';
   if(!fbReady){ err.textContent='Firebase belum dikonfigurasi. Isi firebaseConfig di kode HTML dulu.'; return; }
   if(!name || !username || !pass){ err.textContent='Lengkapi semua kolom.'; return; }
+  if(!/^[a-zA-Z0-9_.]{3,}$/.test(username)){ err.textContent='Username minimal 3 karakter, hanya huruf/angka/titik/garis bawah.'; return; }
+  if(pass.length<6){ err.textContent='Password minimal 6 karakter.'; return; }
   if(role==='guru' && code!==ADMIN_CODE){ err.textContent='Kode admin salah.'; return; }
   err.textContent='Mendaftarkan akun...';
   try{
-    const existing = await DB.getUser(username);
-    if(existing){ err.textContent='Username sudah dipakai.'; return; }
-    const user = { username, name, pass, role: role==='guru'?'admin':'siswa', xp:0, progress:{}, works:[] };
+    const cred = await fauth.createUserWithEmailAndPassword(usernameToEmail(username), pass);
+    const today = new Date().toISOString().slice(0,10);
+    const user = { uid: cred.user.uid, username, name, role: role==='guru'?'admin':'siswa', xp:0, progress:{}, works:[], streak:{count:1,lastDate:today}, badges:[] };
     await DB.saveUser(user);
     session = username; currentUserData = user; enterApp();
-  }catch(e){ console.error(e); err.textContent='Gagal terhubung ke Firebase. Coba lagi.'; }
+  }catch(e){
+    console.error(e);
+    if(e.code==='auth/email-already-in-use') err.textContent='Username sudah dipakai.';
+    else if(e.code==='auth/weak-password') err.textContent='Password minimal 6 karakter.';
+    else err.textContent='Gagal mendaftar. Coba lagi.';
+  }
 }
 async function doLogin(){
   const username = document.getElementById('loginUser').value.trim();
   const pass = document.getElementById('loginPass').value;
   const err = document.getElementById('loginError'); err.textContent='';
   if(!fbReady){ err.textContent='Firebase belum dikonfigurasi. Isi firebaseConfig di kode HTML dulu.'; return; }
+  if(!username || !pass){ err.textContent='Isi username dan password.'; return; }
   err.textContent='Memeriksa akun...';
   try{
-    const user = await DB.getUser(username);
-    if(!user || user.pass!==pass){ err.textContent='Username atau password salah.'; return; }
+    const cred = await fauth.signInWithEmailAndPassword(usernameToEmail(username), pass);
+    let user = await DB.getUserByUid(cred.user.uid);
+    if(!user){ err.textContent='Data akun tidak ditemukan. Hubungi guru/admin.'; return; }
+    user = applyDailyStreak(user);
     session = username; currentUserData = user; enterApp();
-  }catch(e){ console.error(e); err.textContent='Gagal terhubung ke Firebase. Coba lagi.'; }
+  }catch(e){
+    console.error(e);
+    err.textContent='Username atau password salah.';
+  }
 }
-function doLogout(){ session = null; currentUserData = null; document.getElementById('screen-app').style.display='none'; document.getElementById('screen-auth').style.display='grid'; }
+function applyDailyStreak(user){
+  const today = new Date().toISOString().slice(0,10);
+  if(!user.streak) user.streak = {count:0,lastDate:''};
+  if(user.streak.lastDate===today){ /* sudah tercatat hari ini */ }
+  else{
+    const y = new Date(Date.now()-86400000).toISOString().slice(0,10);
+    user.streak.count = (user.streak.lastDate===y) ? (user.streak.count||0)+1 : 1;
+    user.streak.lastDate = today;
+    DB.saveUser(user).catch(e=>console.error(e));
+  }
+  return user;
+}
+function doLogout(){
+  if(fbReady) fauth.signOut().catch(e=>console.error(e));
+  session = null; currentUserData = null;
+  document.getElementById('screen-app').style.display='none';
+  document.getElementById('screen-auth').style.display='grid';
+}
 function currentUser(){ return currentUserData; }
 function saveCurrentUser(u){ currentUserData = u; DB.saveUser(u).catch(e=>console.error('Gagal menyimpan ke Firebase:', e)); }
 
@@ -800,6 +883,7 @@ function renderNav(){
   let html = `<button class="nav-btn" data-r="dashboard" onclick="goDashboard()"><span class="ic">&#8962;</span> Beranda</button>
               <button class="nav-btn" data-r="studio" onclick="goStudio()"><span class="ic">&#9998;</span> Studio Latihan</button>
               <button class="nav-btn" data-r="gallery" onclick="goGallery()"><span class="ic">&#9733;</span> Galeri Karya</button>
+              <button class="nav-btn" data-r="profile" onclick="goProfile()"><span class="ic">👤</span> Profil Saya</button>
               <button class="nav-btn" data-r="abk" onclick="openAbkSettings()"><span class="ic">🧩</span> Mode ABK</button>`;
   if(u.role==='admin'){ html += `<button class="nav-btn" data-r="admin" onclick="goAdmin()"><span class="ic">&#128202;</span> Dashboard Admin</button>`; }
   nav.innerHTML = html;
@@ -810,14 +894,97 @@ function renderNav(){
 }
 function setActiveTab(name){ document.querySelectorAll('#navList button').forEach(b=>b.classList.toggle('active', b.dataset.r===name)); }
 
+function goProfile(){
+  stopSpeech();
+  setActiveTab('profile');
+  const u = currentUser();
+  const initials = u.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  const streakCount = (u.streak && u.streak.count) || 0;
+  let totalDone=0; const totalLevels = totalLevelCount();
+  TRACKS.forEach(t=>t.modules.forEach(m=> totalDone += doneLevelsCount(u,m)));
+  const overallLevel = Math.floor(u.xp/100)+1;
+  let html = `<h1 class="page-title">Profil Saya</h1>
+  <p class="page-sub">Lihat identitas, XP, dan progres belajarmu di sini.</p>
+  <div class="profile-card">
+    <div class="profile-head">
+      <div class="profile-avatar">${initials}</div>
+      <div>
+        <div style="font-weight:700;font-size:18px;font-family:'Space Grotesk',sans-serif;">${u.name}</div>
+        <div class="profile-meta">@${u.username} · ${u.role==='admin'?'Guru / Admin':'Siswa'}</div>
+      </div>
+    </div>
+    <div class="profile-row">
+      <div class="profile-stat"><div class="ps-num">${overallLevel}</div><div class="ps-lbl">LEVEL PENGGUNA</div></div>
+      <div class="profile-stat"><div class="ps-num">${u.xp}</div><div class="ps-lbl">TOTAL XP</div></div>
+      <div class="profile-stat"><div class="ps-num">${totalDone}/${totalLevels}</div><div class="ps-lbl">LEVEL MATERI SELESAI</div></div>
+      <div class="profile-stat"><div class="ps-num">🔥 ${streakCount}</div><div class="ps-lbl">HARI BERTURUT-TURUT</div></div>
+    </div>
+    <h3 style="font-size:15px;margin-bottom:14px;">Progres per Aplikasi</h3>
+    ${TRACKS.map(t=>{
+      const pct = trackPercent(u,t);
+      return `<div class="app-progress-row"><div class="apr-head"><span>${t.label.toUpperCase()}</span><span>${pct}%</span></div>
+        <div class="cc-bar-track"><div class="cc-bar-fill ${t.cls}" style="width:${pct}%"></div></div></div>`;
+    }).join('')}
+    <h3 style="font-size:15px;margin:22px 0 10px;">🏅 Badge</h3>
+    <p style="font-size:13px;color:var(--ink-soft);">${(u.badges&&u.badges.length) ? u.badges.join(', ') : 'Belum ada badge — fitur badge segera hadir di update berikutnya. Terus selesaikan level untuk bersiap mengumpulkannya!'}</p>
+  </div>`;
+  document.getElementById('viewRoot').innerHTML = html;
+}
+
+function findNextLevel(u){
+  for(const t of TRACKS){
+    for(const m of t.modules){
+      const prog = getProg(u, m.id);
+      for(let i=0;i<5;i++){
+        const st = levelStatus(prog, i);
+        if(st==='todo' || st==='progress') return {track:t, module:m, levelIndex:i};
+      }
+    }
+  }
+  return null;
+}
+function trackPercent(u, t){
+  const done = t.modules.reduce((a,m)=>a+doneLevelsCount(u,m),0);
+  return Math.round(done/(t.modules.length*5)*100);
+}
+function nextLevelCardHtml(u){
+  const next = findNextLevel(u);
+  if(!next) return `<div class="continue-card"><div class="cc-eyebrow">LANJUTKAN BELAJAR</div><div class="cc-title">🎉 Semua level sudah selesai!</div><div class="cc-next">Kamu sudah menyelesaikan seluruh 90 level. Luar biasa!</div></div>`;
+  const {track, module, levelIndex} = next;
+  const pct = trackPercent(u, track);
+  return `<div class="continue-card ${track.cls}">
+    <div class="cc-eyebrow">LANJUTKAN BELAJAR</div>
+    <div class="cc-title">${track.label} <span class="cc-pct">${pct}%</span></div>
+    <div class="cc-bar-track"><div class="cc-bar-fill ${track.cls}" style="width:${pct}%"></div></div>
+    <div class="cc-next">Materi berikutnya: <strong>${module.title} — Level ${levelIndex+1}</strong></div>
+    <button class="btn btn-sm ${track.btn}" onclick="goLevel('${module.id}',${levelIndex})">Lanjutkan &rarr;</button>
+  </div>`;
+}
+function roadmapHtml(u){
+  const colorVar = {word:'var(--word)', excel:'var(--excel)', ppt:'var(--ppt)'};
+  let nodes='';
+  TRACKS.forEach((t,i)=>{
+    const pct = trackPercent(u, t);
+    nodes += `<div class="roadmap-node">
+      <div class="roadmap-circle" style="background:conic-gradient(${colorVar[t.id]} ${pct}%, var(--surface-2) 0%)"><span>${pct}%</span></div>
+      <div class="roadmap-lbl">${t.label}</div>
+    </div>`;
+    if(i<TRACKS.length-1) nodes += `<div class="roadmap-line"></div>`;
+  });
+  return `<div class="roadmap-card"><h3 style="margin-bottom:16px;font-size:17px;">🧭 Perjalanan Belajar</h3><div class="roadmap-track">${nodes}</div></div>`;
+}
+
 function goDashboard(){
   stopSpeech();
   setActiveTab('dashboard');
   const u = currentUser();
   let doneLevels=0; const totalLevels = totalLevelCount();
   TRACKS.forEach(t=>t.modules.forEach(m=> doneLevels += doneLevelsCount(u,m)));
-  let html = `<h1 class="page-title">Selamat datang, ${u.name.split(' ')[0]}!</h1>
-  <p class="page-sub">Kuasai Word, Excel, dan PowerPoint lewat 90 level berjenjang. ${doneLevels}/${totalLevels} level selesai.</p>`;
+  const streakCount = (u.streak && u.streak.count) || 0;
+  let html = `<h1 class="page-title">Selamat datang, ${u.name.split(' ')[0]}! 👋</h1>
+  <p class="page-sub">Belajar Word, Excel, dan PowerPoint dengan cara sederhana dan menyenangkan. ${doneLevels}/${totalLevels} level selesai.${streakCount>0 ? ` 🔥 ${streakCount} hari berturut-turut belajar.` : ''}</p>
+  ${nextLevelCardHtml(u)}
+  ${roadmapHtml(u)}`;
   TRACKS.forEach(t=>{
     const doneInTrack = t.modules.reduce((a,m)=>a+doneLevelsCount(u,m),0);
     const totalInTrack = t.modules.length*5;
@@ -845,13 +1012,20 @@ function goModule(id){
   const {track, module} = found;
   const u = currentUser();
   const prog = getProg(u, module.id);
+  const statusMeta = {
+    locked:{icon:'🔒', label:'Terkunci'},
+    todo:{icon:'▶️', label:'Belum dimulai'},
+    progress:{icon:'🟡', label:'Sedang belajar'},
+    done:{icon:'🟢', label:'Selesai'}
+  };
   let chips = '';
   for(let i=0;i<5;i++){
-    const done = prog.levels[i];
-    const unlocked = i===0 || prog.levels[i-1];
-    let cls='level-chip'; if(!unlocked) cls+=' locked'; else if(done) cls+=` done ${track.cls}`; else cls+=` current ${track.cls}`;
+    const st = levelStatus(prog, i);
+    const unlocked = st!=='locked';
+    let cls='level-chip'; if(st==='locked') cls+=' locked'; else if(st==='done') cls+=` done ${track.cls}`; else cls+=` current ${track.cls}`;
     chips += `<div class="level-chip-wrap ${unlocked?'clickable':''}" ${unlocked?`onclick="goLevel('${module.id}',${i})"`:''}>
-      <div class="${cls}">${done?'&#10003;':(i+1)}</div>
+      <div class="${cls}">${st==='done'?'&#10003;':(st==='locked'?'&#128274;':(i+1))}</div>
+      <div class="level-status-tag st-${st}">${statusMeta[st].icon} ${statusMeta[st].label}</div>
       <div class="level-chip-lbl">${module.levels[i].title.length>26 ? module.levels[i].title.slice(0,24)+'…' : module.levels[i].title}</div>
     </div>`;
   }
@@ -880,6 +1054,10 @@ function goLevel(moduleId, levelIndex){
   const level = module.levels[levelIndex];
   currentAbkMode = abkEnabledModes[0] || 'baca';
   window.__curTrack = track; window.__curLevel = level;
+  const u = currentUser();
+  const prog = getProg(u, module.id);
+  if(!prog.visited) prog.visited=[false,false,false,false,false];
+  if(!prog.visited[levelIndex]){ prog.visited[levelIndex]=true; u.progress[module.id]=prog; saveCurrentUser(u); }
   let html = `<button class="back-link" onclick="goModule('${moduleId}')">&larr; Kembali ke Peta Level</button>
   <div class="lesson-wrap">
     <div class="lesson-card">

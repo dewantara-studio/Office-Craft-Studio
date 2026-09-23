@@ -1,17 +1,19 @@
-# OfficeCraft Studio
+# OfficeCraft Studio 2.0
 
-Aplikasi web untuk belajar **Microsoft Word, Excel, dan PowerPoint** lewat modul singkat, latihan interaktif langsung di browser, dan kuis berjenjang — dibuat untuk siswa.
+Buku belajar digital interaktif untuk **Microsoft Word, Excel, dan PowerPoint** — bertahap, bergamifikasi, dan dibuat untuk siswa SD kelas tinggi, SMP, hingga SMPLB/SMALB.
 
 ## Fitur
 
-- **Login & Daftar** — siswa mendaftar sendiri; guru/admin mendaftar dengan kode admin.
-- **18 modul belajar** (6 modul Word, 6 modul Excel, 6 modul PowerPoint), masing-masing dipecah menjadi **5 level** berjenjang yang harus diselesaikan berurutan.
-- **90 level** total, masing-masing punya materi, latihan interaktif, dan kuis sendiri (180 soal kuis keseluruhan).
-- **Latihan interaktif** sesuai topik: editor teks dengan format Word, tabel & rumus Excel yang terhitung otomatis, canvas slide PowerPoint dengan tema/transisi, dan lainnya.
-- **Studio Latihan** — tempat berlatih bebas di ketiga aplikasi, hasilnya bisa disimpan.
-- **Galeri Karya** — menyimpan semua hasil latihan siswa.
-- **Dashboard Admin** — guru bisa memantau XP, level selesai, persentase pemahaman, dan jumlah karya setiap siswa.
-- **Sistem XP** — siswa mendapat poin setiap menyelesaikan level, kuis, atau menyimpan karya.
+- **Login & Daftar** aman lewat **Firebase Authentication** — siswa mendaftar sendiri; guru/admin mendaftar dengan kode admin.
+- **18 modul belajar** (6 modul Word, 6 modul Excel, 6 modul PowerPoint), masing-masing dipecah menjadi **5 level** berjenjang.
+- **90 level** total dengan status 4 tingkat: 🔒 Terkunci, ▶️ Belum dimulai, 🟡 Sedang belajar, 🟢 Selesai — 180 soal kuis keseluruhan.
+- **Beranda** dengan kartu "Lanjutkan Belajar" dan roadmap visual perjalanan Word → Excel → PowerPoint.
+- **Profil Saya** — level pengguna, total XP, streak belajar harian, progress bar per aplikasi.
+- **Studio Latihan** — ribbon fungsional ala Office asli (Home/Insert/Layout/dst) per aplikasi, bisa disimpan ke Galeri Karya.
+- **Mode ABK** — Baca / Visual / Audio / Praktik, bisa dipilih satu, beberapa, atau semua lewat menu terpisah.
+- **Mode gelap/terang**.
+- **Dashboard Admin/Guru** — memantau XP, level selesai, persentase pemahaman, dan karya setiap siswa.
+- **Sistem XP & streak** — siswa mendapat poin setiap menyelesaikan level/kuis/karya, dan streak bertambah tiap hari aktif belajar.
 
 ## Struktur File
 
@@ -19,14 +21,33 @@ Proyek ini adalah **satu file HTML mandiri** (`index.html`) — semua CSS dan Ja
 
 ## Menjalankan Secara Online (Firebase)
 
-Aplikasi ini menyimpan data (akun, progres, karya) secara online lewat **Firebase Firestore**, sehingga siswa bisa login dan melanjutkan progres dari perangkat berbeda.
+Aplikasi ini memakai **Firebase Authentication** untuk login (password dikelola aman oleh Firebase, tidak lagi disimpan sebagai teks biasa) dan **Firebase Firestore** untuk data akun, progres, XP, dan karya siswa.
 
 ### Langkah setup (sekali saja)
 
 1. Buka [console.firebase.google.com](https://console.firebase.google.com), klik **Add project**, beri nama (misalnya `OfficeCraft-Studio`), ikuti proses pembuatan project (gratis).
-2. Di sidebar project, buka **Build > Firestore Database > Create database**. Pilih **Start in test mode** untuk memulai (bisa diperketat nanti lewat Firestore Rules).
-3. Buka **Project settings** (ikon gerigi) → scroll ke bagian **Your apps** → klik ikon web (`</>`) → beri nama app. Firebase akan menampilkan objek `firebaseConfig` berisi `apiKey`, `projectId`, dan lainnya.
-4. Buka `index.html`, cari bagian berikut di dekat awal tag `<script>`:
+2. Di sidebar project, buka **Build > Authentication > Get started**, buka tab **Sign-in method**, aktifkan provider **Email/Password**, klik **Save**.
+
+   > Catatan: siswa tetap login memakai **username** biasa, bukan email. Di balik layar, aplikasi otomatis mengubah username jadi `username@officecraft.local` supaya bisa dipakai Firebase Authentication — siswa tidak perlu punya email asli.
+
+3. Di sidebar project, buka **Build > Firestore Database > Create database**. Pilih **Start in test mode** untuk memulai.
+4. Setelah database dibuat, buka tab **Rules**, hapus isinya, lalu ganti dengan ini:
+
+   ```
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /users/{userId} {
+         allow read: if request.auth != null;
+         allow write: if request.auth != null && request.auth.uid == userId;
+       }
+     }
+   }
+   ```
+
+   Klik **Publish**. Aturan ini mengizinkan semua pengguna yang sudah login untuk membaca data (dibutuhkan Dashboard Admin untuk melihat daftar siswa), tapi setiap pengguna hanya bisa mengubah datanya sendiri — jauh lebih aman dibanding versi sebelumnya karena sudah memanfaatkan status login dari Firebase Authentication.
+5. Buka **Project settings** (ikon gerigi) → scroll ke bagian **Your apps** → klik ikon web (`</>`) → beri nama app. Firebase akan menampilkan objek `firebaseConfig` berisi `apiKey`, `projectId`, dan lainnya.
+6. Buka `index.html`, cari bagian berikut di dekat awal tag `<script>`:
 
    ```js
    const firebaseConfig = {
@@ -41,11 +62,9 @@ Aplikasi ini menyimpan data (akun, progres, karya) secara online lewat **Firebas
 
    Ganti semua nilai `"GANTI_DENGAN_..."` dengan nilai asli dari Firebase Console.
 
-5. Simpan file, lalu unggah ke GitHub (lihat bagian di bawah).
+7. Simpan file, lalu unggah ke GitHub (lihat bagian di bawah).
 
-Jika `firebaseConfig` belum diisi, aplikasi akan menampilkan peringatan di halaman login dan login/daftar tidak akan berfungsi.
-
-> **Catatan keamanan:** mode "test mode" pada Firestore membuat data bisa dibaca/ditulis siapa saja yang tahu alamat project selama masa uji coba (biasanya 30 hari). Untuk pemakaian jangka panjang, atur **Firestore Rules** agar lebih aman, atau tanyakan ke pengembang/gurumu yang paham Firebase.
+Jika `firebaseConfig` belum diisi, aplikasi akan menampilkan peringatan di halaman login dan login/daftar tidak akan berfungsi. Jika provider **Email/Password** belum diaktifkan di langkah 2, pendaftaran akun baru akan gagal dengan pesan error.
 
 ## Deploy ke GitHub Pages
 
@@ -66,6 +85,17 @@ OFFICE2026
 
 Kode ini bisa diganti langsung di kode HTML pada bagian `const ADMIN_CODE = "OFFICE2026";` jika ingin diamankan lebih lanjut.
 
+## Roadmap Pengembangan
+
+Versi ini adalah **Fase 1** dari rencana pengembangan OfficeCraft Studio 2.0:
+
+- ✅ **Fase 1** — Firebase Authentication, identitas visual baru, halaman Profil, roadmap Beranda, status level 4 tingkat, streak harian.
+- ⏳ **Fase 2** — Restrukturisasi data materi jadi format modular (courses/modules) + tambah sub-materi (Copy/Cut/Paste, Sort/Filter/Diagram, Animasi, dll).
+- ⏳ **Fase 3** — Sistem badge otomatis, bahasa kuis lebih positif.
+- ⏳ **Fase 4** — Office Studio berbasis proyek terarah (Biodata, Tabel Nilai, Presentasi Diri) dengan checklist, dan Karya Saya jadi portofolio berstatus.
+- ⏳ **Fase 5** — Dashboard Guru diperluas: breakdown per aplikasi, filter, kolom badge.
+
 ## Lisensi
 
 Bebas digunakan dan dimodifikasi untuk keperluan pembelajaran di sekolah.
+
