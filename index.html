@@ -184,6 +184,44 @@
   .app-progress-row{margin-bottom:14px;}
   .app-progress-row .apr-head{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px;}
 
+  /* Badge toast */
+  .badge-toast{position:fixed;right:20px;background:var(--surface);border:1.5px solid var(--line);border-left:5px solid var(--violet);border-radius:14px;padding:14px 18px;box-shadow:0 20px 50px rgba(0,0,0,.22);z-index:300;display:flex;align-items:center;gap:12px;max-width:300px;animation:badgeIn .3s ease, badgeOut .3s ease 3.9s forwards;}
+  .badge-toast .bt-icon{font-size:28px;flex-shrink:0;}
+  .badge-toast .bt-title{font-weight:700;font-size:13.5px;}
+  .badge-toast .bt-desc{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+  @keyframes badgeIn{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+  @keyframes badgeOut{to{opacity:0;transform:translateX(30px);}}
+
+  /* Quiz feedback (positive language) */
+  .qfeedback{font-size:13px;font-weight:700;margin-top:4px;min-height:18px;}
+  .qfeedback.ok{color:var(--excel);}
+  .qfeedback.retry{color:#B8860B;}
+  html[data-theme="dark"] .qfeedback.retry{color:#F0C14B;}
+
+  /* Badge grid (Profil) */
+  .badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+  .badge-item{background:var(--surface-2);border-radius:var(--radius-sm);padding:14px;text-align:center;}
+  .badge-item .bi-icon{font-size:28px;display:block;margin-bottom:6px;}
+  .badge-item .bi-title{font-size:12px;font-weight:700;}
+  .badge-item.locked{opacity:.4;}
+
+  /* Office Studio projects */
+  .project-picker{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .project-chip{background:var(--surface-2);border:1.5px solid transparent;border-radius:999px;padding:9px 16px;font-size:12.5px;font-weight:700;color:var(--ink-soft);}
+  .project-chip.active{background:var(--surface);border-color:var(--ink);color:var(--ink);box-shadow:0 4px 12px rgba(20,21,30,.08);}
+  .project-panel{background:var(--surface-2);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:16px;}
+  .project-panel h4{font-size:15px;margin-bottom:8px;font-family:'Space Grotesk',sans-serif;}
+  .project-panel .pp-goal{font-size:13px;color:var(--ink-soft);margin-bottom:8px;line-height:1.55;}
+  .project-panel ol{padding-left:20px;font-size:13px;margin:0 0 14px;line-height:1.7;}
+  .project-checklist .checklist-item{font-size:13px;padding:8px 0;}
+  .project-checklist .checklist-item input{accent-color:var(--violet);}
+
+  /* Karya Saya status pill */
+  .status-pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;}
+  .status-pill.selesai{background:var(--excel-soft);color:var(--excel);}
+  .status-pill.dikerjakan{background:#FFF3D6;color:#B8860B;}
+  html[data-theme="dark"] .status-pill.dikerjakan{background:#3A3216;color:#F0C14B;}
+
   .lesson-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start;}
   @media (max-width:900px){.lesson-wrap{grid-template-columns:1fr;}}
   .lesson-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;}
@@ -331,9 +369,9 @@
       <p class="lede">Buku belajar digital untuk Word, Excel, dan PowerPoint — bertahap, visual, dan menyenangkan untuk siswa SD, SMP, hingga SMPLB/SMALB.</p>
       <div class="pill-row" style="margin-bottom:0;margin-top:2px;"><span class="pill" style="background:rgba(255,255,255,.12);">oleh Sony Putra Dewantara</span></div>
       <div class="float-cards">
-        <div class="float-card"><div class="fc-num">18</div><div class="fc-lbl">Modul belajar</div></div>
-        <div class="float-card"><div class="fc-num">90</div><div class="fc-lbl">Level tantangan</div></div>
-        <div class="float-card"><div class="fc-num">180</div><div class="fc-lbl">Soal kuis</div></div>
+        <div class="float-card"><div class="fc-num">19</div><div class="fc-lbl">Modul belajar</div></div>
+        <div class="float-card"><div class="fc-num">95</div><div class="fc-lbl">Level tantangan</div></div>
+        <div class="float-card"><div class="fc-num">190</div><div class="fc-lbl">Soal kuis</div></div>
       </div>
     </div>
     <div class="auth-foot">OFFICECRAFT STUDIO</div>
@@ -407,13 +445,12 @@
    ========================================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAwABtavcBrSTYRL9mlmHM01z_fbz2wkiA",
-  authDomain: "officecraft-studio.firebaseapp.com",
-  projectId: "officecraft-studio",
-  storageBucket: "officecraft-studio.firebasestorage.app",
-  messagingSenderId: "625737188043",
-  appId: "1:625737188043:web:acea90962a0964a5eb514e",
-  measurementId: "G-5TGEYWHVC3"
+  apiKey: "GANTI_DENGAN_API_KEY_FIREBASE_MU",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
+  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
+  appId: "GANTI_DENGAN_APP_ID"
 };
 
 let fbReady = false;
@@ -469,6 +506,25 @@ function stopSpeech(){ try{ window.speechSynthesis.cancel(); }catch(e){} }
 function L(title, lesson, q1, q2){ return {title, lesson, quiz:[q1,q2]}; }
 function Q(q, opts, correct){ return {q, opts, correct}; }
 
+/* =========================================================================
+   DATA MATERI (COURSES) — satu-satunya tempat yang perlu disunting untuk
+   menambah/mengubah konten belajar. Tidak tercampur dengan logika tampilan.
+
+   Struktur:
+   TRACKS = daftar 3 aplikasi (word/excel/ppt), masing-masing punya:
+     - modules: daftar modul (boleh ditambah kapan saja, misal w8, w9, ...)
+       - practiceType: nama widget latihan interaktif yang dipakai SEMUA
+         level di modul itu (lihat daftar practiceType di renderPractice)
+       - levels: PERSIS 5 objek L(...) per modul — jangan kurang/lebih dari 5,
+         karena peta level & sistem unlock mengasumsikan 5 level per modul.
+         L(judul, htmlMateri, soal1, soal2) — soal dibuat dengan Q(pertanyaan,
+         [pilihan...], indexJawabanBenar)
+
+   Cara menambah modul baru: salin satu blok "{ id:'w7', title:..., ... }",
+   ganti id (harus unik di seluruh TRACKS), title, desc, practiceType, dan
+   isi levels-nya. Total modul/level otomatis terhitung ulang di seluruh
+   aplikasi (dashboard, profil, admin) — tidak perlu ubah angka manapun.
+   ========================================================================= */
 const TRACKS = [
 { id:'word', label:'Word', tag:'tag-word', btn:'btn-word', cls:'c-word',
   modules:[
@@ -573,6 +629,23 @@ const TRACKS = [
       L('Praktik: Dokumen Siap Cetak','<p>Gabungkan orientasi, margin, header berisi judul, dan footer berisi nomor halaman untuk menyiapkan dokumen yang rapi dan siap dicetak.</p>',
         Q('Dokumen siap cetak yang rapi sebaiknya memiliki...', ['Margin, header, dan footer yang konsisten','Orientasi acak tiap halaman','Tanpa margin sama sekali','Header berbeda tiap halaman'],0),
         Q('Kombinasi elemen yang membantu pembaca mengetahui posisi halaman adalah...', ['Page number di header/footer','Warna latar belakang','Font yang besar','Gambar sampul'],0))
+    ]},
+    { id:'w7', title:'Edit Cepat: Copy, Cut, Paste, Undo & Redo', desc:'Menyalin, memindahkan, dan membatalkan perubahan teks dengan cepat.', practiceType:'word-editops', levels:[
+      L('Memilih (Blok) Teks','<p>Sebelum menyalin atau memindahkan teks, kita perlu <strong>memilih (blok)</strong> teks itu dulu — misalnya dengan klik dan menyeret mouse, atau menekan <strong>Ctrl+A</strong> untuk memilih semua teks.</p><ul><li>Teks yang terpilih biasanya ditandai warna biru.</li><li>Memilih teks adalah langkah pertama sebelum copy, cut, atau mengubah format.</li></ul>',
+        Q('Sebelum menyalin teks, langkah pertama yang harus dilakukan adalah...', ['Menyimpan dokumen','Memilih/blok teks','Mencetak dokumen','Menutup Word'],1),
+        Q('Ctrl+A pada keyboard berfungsi untuk...', ['Menghapus semua teks','Memilih semua teks','Mencetak dokumen','Menyimpan dokumen'],1)),
+      L('Copy (Menyalin)','<p><strong>Copy</strong> (Ctrl+C) menyalin teks yang dipilih tanpa menghapusnya dari tempat asal — teks aslinya tetap ada, dan salinannya siap ditempel di tempat lain.</p>',
+        Q('Setelah teks di-copy, teks aslinya akan...', ['Terhapus','Tetap ada','Berubah warna','Hilang otomatis'],1),
+        Q('Tombol pintasan (shortcut) untuk Copy adalah...', ['Ctrl+V','Ctrl+C','Ctrl+X','Ctrl+Z'],1)),
+      L('Cut & Paste (Memotong & Menempel)','<p><strong>Cut</strong> (Ctrl+X) memindahkan teks — teks aslinya dihapus dari tempat asal. <strong>Paste</strong> (Ctrl+V) menempelkan teks yang sudah di-copy atau di-cut ke posisi baru.</p>',
+        Q('Perbedaan Cut dengan Copy adalah...', ['Cut menghapus teks asli, Copy tidak','Copy menghapus teks asli, Cut tidak','Keduanya sama persis','Cut tidak bisa dipakai di Word'],0),
+        Q('Tombol pintasan untuk Paste adalah...', ['Ctrl+C','Ctrl+X','Ctrl+V','Ctrl+P'],2)),
+      L('Undo & Redo','<p><strong>Undo</strong> (Ctrl+Z) membatalkan perubahan terakhir, berguna kalau kita membuat kesalahan. <strong>Redo</strong> (Ctrl+Y) mengulang kembali perubahan yang baru saja dibatalkan.</p>',
+        Q('Jika salah menghapus teks, kita bisa mengembalikannya dengan...', ['Redo','Undo','Cut','Paste'],1),
+        Q('Redo berfungsi untuk...', ['Membatalkan perubahan','Mengulang perubahan yang dibatalkan','Menyimpan dokumen','Mencetak dokumen'],1)),
+      L('Praktik: Menyunting Dokumen dengan Cepat','<p>Sekarang gabungkan semuanya: pilih teks, copy atau cut dari Dokumen A, tempel ke Dokumen B, lalu gunakan undo/redo kalau ada yang perlu dibatalkan atau diulang.</p>',
+        Q('Urutan langkah yang benar untuk memindahkan kalimat ke dokumen lain adalah...', ['Paste, lalu Cut','Cut, lalu Paste','Copy, lalu Undo','Undo, lalu Redo'],1),
+        Q('Kombinasi Cut + Paste + Undo berguna saat kita ingin...', ['Memindahkan teks dan tetap bisa membatalkan jika salah','Menghapus dokumen permanen','Mencetak dokumen','Mengganti bahasa'],0))
     ]}
   ]},
 { id:'excel', label:'Excel', tag:'tag-excel', btn:'btn-excel', cls:'c-excel',
@@ -876,14 +949,18 @@ function enterApp(){
   document.getElementById('screen-auth').style.display='none';
   document.getElementById('screen-app').style.display='block';
   syncThemeButtons();
+  const u = currentUser();
+  const newBadges = checkBadges(u);
+  if(newBadges.length){ saveCurrentUser(u); }
   renderNav(); goDashboard();
+  newBadges.forEach((b,i)=>showBadgeToast(b,i));
 }
 function renderNav(){
   const u = currentUser();
   const nav = document.getElementById('navList');
   let html = `<button class="nav-btn" data-r="dashboard" onclick="goDashboard()"><span class="ic">&#8962;</span> Beranda</button>
-              <button class="nav-btn" data-r="studio" onclick="goStudio()"><span class="ic">&#9998;</span> Studio Latihan</button>
-              <button class="nav-btn" data-r="gallery" onclick="goGallery()"><span class="ic">&#9733;</span> Galeri Karya</button>
+              <button class="nav-btn" data-r="studio" onclick="goStudio()"><span class="ic">&#127912;</span> Office Studio</button>
+              <button class="nav-btn" data-r="gallery" onclick="goGallery()"><span class="ic">&#128193;</span> Karya Saya</button>
               <button class="nav-btn" data-r="profile" onclick="goProfile()"><span class="ic">👤</span> Profil Saya</button>
               <button class="nav-btn" data-r="abk" onclick="openAbkSettings()"><span class="ic">🧩</span> Mode ABK</button>`;
   if(u.role==='admin'){ html += `<button class="nav-btn" data-r="admin" onclick="goAdmin()"><span class="ic">&#128202;</span> Dashboard Admin</button>`; }
@@ -927,7 +1004,10 @@ function goProfile(){
         <div class="cc-bar-track"><div class="cc-bar-fill ${t.cls}" style="width:${pct}%"></div></div></div>`;
     }).join('')}
     <h3 style="font-size:15px;margin:22px 0 10px;">🏅 Badge</h3>
-    <p style="font-size:13px;color:var(--ink-soft);">${(u.badges&&u.badges.length) ? u.badges.join(', ') : 'Belum ada badge — fitur badge segera hadir di update berikutnya. Terus selesaikan level untuk bersiap mengumpulkannya!'}</p>
+    <div class="badge-grid">${BADGES.map(b=>{
+      const earned = (u.badges||[]).includes(b.id);
+      return `<div class="badge-item ${earned?'':'locked'}"><span class="bi-icon">${earned?b.icon:'🔒'}</span><div class="bi-title">${b.title}</div></div>`;
+    }).join('')}</div>
   </div>`;
   document.getElementById('viewRoot').innerHTML = html;
 }
@@ -1234,6 +1314,18 @@ function renderPractice(module){
       <input type="range" min="0" max="40" value="16" oninput="document.getElementById('pagePrev').style.padding=this.value+'px'" style="margin-bottom:10px;">
       <div class="field"><label>Header</label><input id="headerTxt" placeholder="Judul dokumen"></div>
       <div class="field"><label>Footer</label><input id="footerTxt" placeholder="Nomor halaman / nama"></div>`;
+  } else if(pt==='word-editops'){
+    box.innerHTML = `<label style="font-size:12px;font-weight:700;color:var(--ink-soft);">Dokumen A (sumber)</label>
+      <div class="word-editor" id="editopsA" contenteditable="true" style="min-height:70px;margin-top:6px;">Ini kalimat yang bisa kamu salin atau potong.</div>
+      <div class="toolbar" style="margin-top:12px;">
+        <button class="tbtn wide" onclick="editopsCopy()">📋 Copy</button>
+        <button class="tbtn wide" onclick="editopsCut()">✂️ Cut</button>
+        <button class="tbtn wide" onclick="editopsPaste()">📥 Paste ke B</button>
+        <button class="tbtn wide" onclick="editopsUndo()">↩️ Undo</button>
+        <button class="tbtn wide" onclick="editopsRedo()">↪️ Redo</button></div>
+      <label style="font-size:12px;font-weight:700;color:var(--ink-soft);display:block;margin-top:12px;">Dokumen B (tujuan)</label>
+      <div class="word-editor" id="editopsB" contenteditable="true" style="min-height:70px;margin-top:6px;">Tempel hasil salinan di sini.</div>
+      <div id="editopsStatus" style="font-size:12px;color:var(--ink-soft);margin-top:8px;min-height:16px;"></div>`;
   } else if(pt==='excel-basic'){
     box.innerHTML = `<table class="grid-sheet"><tr><th></th><th>A</th><th>B</th><th>C</th></tr>
       <tr><td class="label">1</td><td><input placeholder="Nama"></td><td><input placeholder="Kelas"></td><td><input placeholder="Nilai"></td></tr>
@@ -1327,6 +1419,44 @@ function renderPractice(module){
 
 function addWordRow(){ const t = document.getElementById('wordTable'); const row = t.insertRow(-1); row.innerHTML = '<td><input></td><td><input></td><td><input></td>'; }
 function insertImgPh(label){ const ed = document.getElementById('wordImgEditor'); ed.innerHTML += ` <span style="background:var(--word-soft);color:var(--word);padding:3px 10px;border-radius:8px;font-size:12.5px;font-weight:700;">${label}</span> `; }
+let editopsClipboard = '';
+let editopsHistory = [];
+let editopsFuture = [];
+function editopsStatus(msg){ const s = document.getElementById('editopsStatus'); if(s) s.textContent = msg; }
+function editopsSnapshotB(){ const b = document.getElementById('editopsB'); if(b){ editopsHistory.push(b.innerHTML); editopsFuture=[]; } }
+function editopsCopy(){
+  const a = document.getElementById('editopsA');
+  const sel = window.getSelection().toString();
+  editopsClipboard = sel && sel.trim() ? sel : a.innerText;
+  editopsStatus('📋 Disalin: "' + editopsClipboard.slice(0,40) + (editopsClipboard.length>40?'…':'') + '"');
+}
+function editopsCut(){
+  const a = document.getElementById('editopsA');
+  editopsClipboard = a.innerText;
+  a.innerHTML = '';
+  editopsStatus('✂️ Dipotong: teks dihapus dari Dokumen A dan disimpan sementara.');
+}
+function editopsPaste(){
+  if(!editopsClipboard){ editopsStatus('Belum ada yang disalin/dipotong. Coba Copy atau Cut dulu.'); return; }
+  editopsSnapshotB();
+  const b = document.getElementById('editopsB');
+  b.innerHTML += (b.innerHTML.trim() ? ' ' : '') + editopsClipboard;
+  editopsStatus('📥 Ditempel ke Dokumen B.');
+}
+function editopsUndo(){
+  const b = document.getElementById('editopsB');
+  if(!editopsHistory.length){ editopsStatus('Tidak ada perubahan untuk di-undo.'); return; }
+  editopsFuture.push(b.innerHTML);
+  b.innerHTML = editopsHistory.pop();
+  editopsStatus('↩️ Undo: kembali ke versi sebelumnya.');
+}
+function editopsRedo(){
+  const b = document.getElementById('editopsB');
+  if(!editopsFuture.length){ editopsStatus('Tidak ada perubahan untuk di-redo.'); return; }
+  editopsHistory.push(b.innerHTML);
+  b.innerHTML = editopsFuture.pop();
+  editopsStatus('↪️ Redo: mengulang perubahan.');
+}
 function setOrient(mode){
   document.getElementById('orPotret').classList.toggle('active', mode==='potret');
   document.getElementById('orLanskap').classList.toggle('active', mode==='lanskap');
@@ -1368,6 +1498,39 @@ function playTransition(type, el){
 }
 function setSlideTheme(bg, ink, el){ document.querySelectorAll('.swatch-row .swatch').forEach(s=>s.classList.remove('active')); el.classList.add('active'); const slide = document.getElementById('themeSlide'); slide.style.background = bg; slide.style.borderTopColor = ink; slide.querySelector('.slide-title').style.color = ink; }
 
+function moduleFullyDone(u, moduleId){ const p = getProg(u, moduleId); return p && p.levels && p.levels.every(Boolean); }
+function hasWorkType(u, type){ return (u.works||[]).some(w=>w.type===type); }
+function completedProjectIds(u){ const s=new Set(); (u.works||[]).forEach(w=>{ if(w.status==='selesai' && w.projectId) s.add(w.projectId); }); return s; }
+function hasCompletedProject(u, projectId){ return completedProjectIds(u).has(projectId); }
+function allProjectsDone(u){ const total = Object.values(PROJECTS).reduce((a,arr)=>a+arr.length,0); return completedProjectIds(u).size >= total; }
+const BADGES = [
+  { id:'word-pemula', icon:'🏅', title:'Word Pemula', desc:'Menyelesaikan modul pertama Word', check:u=>moduleFullyDone(u,'w1') },
+  { id:'excel-explorer', icon:'🏅', title:'Excel Explorer', desc:'Menyelesaikan modul pertama Excel', check:u=>moduleFullyDone(u,'e1') },
+  { id:'ppt-creator', icon:'🏅', title:'PowerPoint Creator', desc:'Menyelesaikan modul pertama PowerPoint', check:u=>moduleFullyDone(u,'p1') },
+  { id:'data-explorer', icon:'🏅', title:'Data Explorer', desc:'Menyelesaikan modul Sort & Filter dan Diagram Excel', check:u=>moduleFullyDone(u,'e5') && moduleFullyDone(u,'e6') },
+  { id:'presentation-maker', icon:'🏅', title:'Presentation Maker', desc:'Menyimpan karya PowerPoint pertama di Galeri Karya', check:u=>hasWorkType(u,'ppt') },
+  { id:'office-beginner', icon:'🏆', title:'Office Beginner', desc:'Menyelesaikan modul pertama Word, Excel & PowerPoint', check:u=>moduleFullyDone(u,'w1')&&moduleFullyDone(u,'e1')&&moduleFullyDone(u,'p1') },
+  { id:'office-creator', icon:'🏆', title:'Office Creator', desc:'Menyimpan karya di Word, Excel, dan PowerPoint', check:u=>hasWorkType(u,'word')&&hasWorkType(u,'excel')&&hasWorkType(u,'ppt') },
+  { id:'kolektor-proyek', icon:'🏅', title:'Kolektor Proyek', desc:'Menyelesaikan minimal 3 proyek Office Studio', check:u=>completedProjectIds(u).size>=3 },
+  { id:'bendahara-cilik', icon:'🏅', title:'Bendahara Cilik', desc:'Menyelesaikan proyek Catatan Keuangan Sederhana', check:u=>hasCompletedProject(u,'catatan-keuangan') },
+  { id:'pencerita-budaya', icon:'🏅', title:'Pencerita Budaya', desc:'Menyelesaikan proyek Budaya Indonesia', check:u=>hasCompletedProject(u,'budaya-indonesia') },
+  { id:'office-master', icon:'🏆', title:'Office Master', desc:'Menyelesaikan seluruh proyek Office Studio', check:u=>allProjectsDone(u) }
+];
+function checkBadges(u){
+  if(!u.badges) u.badges=[];
+  const newly=[];
+  BADGES.forEach(b=>{ if(!u.badges.includes(b.id) && b.check(u)){ u.badges.push(b.id); newly.push(b); } });
+  return newly;
+}
+function showBadgeToast(badge, index){
+  const el = document.createElement('div');
+  el.className='badge-toast';
+  el.style.top = (20 + index*92) + 'px';
+  el.innerHTML = `<span class="bt-icon">${badge.icon}</span><div><div class="bt-title">Badge baru: ${badge.title}</div><div class="bt-desc">${badge.desc}</div></div>`;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 4300);
+}
+
 function renderQuiz(module, track, levelIndex, level){
   const area = document.getElementById('quizArea');
   let idx=0, score=0;
@@ -1382,11 +1545,14 @@ function renderQuiz(module, track, levelIndex, level){
       let bonusMsg = '';
       if(allDone && !prog.bonusGiven){ u.xp += 20; prog.bonusGiven = true; bonusMsg = ' Kamu juga mendapat bonus <strong>+20 XP</strong> karena menyelesaikan semua level modul ini!'; }
       u.progress[module.id] = prog;
+      const newBadges = checkBadges(u);
       saveCurrentUser(u); renderNav();
+      newBadges.forEach((b,i)=>showBadgeToast(b,i));
       const nextIdx = levelIndex+1;
       const hasNext = nextIdx < 5;
-      area.innerHTML = `<div class="quiz-result">Skor kuis: <strong>${score}/${level.quiz.length}</strong>.
-        ${gained>0 ? `Kamu mendapat <strong>+${gained} XP</strong>.` : 'Level ini sudah pernah diselesaikan sebelumnya.'}${bonusMsg}
+      const cheer = score===level.quiz.length ? '🟢 Hebat! Semua jawabanmu tepat.' : score>0 ? '🟡 Bagus, sebagian sudah tepat — coba lagi lain kali untuk skor sempurna.' : '🟡 Belum semua tepat, tidak apa-apa — pelajari lagi materinya lalu coba lagi.';
+      area.innerHTML = `<div class="quiz-result"><div style="font-weight:700;margin-bottom:6px;">${cheer}</div>Skor kuis: <strong>${score}/${level.quiz.length}</strong>.
+        ${gained>0 ? ` Kamu mendapat <strong>+${gained} XP</strong>.` : ' Level ini sudah pernah diselesaikan sebelumnya.'}${bonusMsg}
         <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
           ${hasNext && !already ? `<button class="btn btn-sm ${track.btn}" onclick="goLevel('${module.id}',${nextIdx})">Lanjut ke Level ${nextIdx+1}</button>` : ''}
           <button class="btn btn-sm btn-outline" onclick="goModule('${module.id}')">Kembali ke Peta Level</button>
@@ -1395,22 +1561,111 @@ function renderQuiz(module, track, levelIndex, level){
     }
     const q = level.quiz[idx];
     let opts=''; q.opts.forEach((o,i)=>{ opts += `<button class="quiz-opt" onclick="answerQ(${i})">${o}</button>`; });
-    area.innerHTML = `<div class="quiz-q"><div class="qtext">${idx+1}. ${q.q}</div>${opts}</div>`;
+    area.innerHTML = `<div class="quiz-q"><div class="qtext">${idx+1}. ${q.q}</div>${opts}<div class="qfeedback" id="qfeedback"></div></div>`;
   }
   window.answerQ = function(i){
     const q = level.quiz[idx]; const btns = area.querySelectorAll('.quiz-opt');
     btns.forEach((b,bi)=>{ b.disabled=true; if(bi===q.correct) b.classList.add('correct'); else if(bi===i) b.classList.add('wrong'); });
-    if(i===q.correct) score++;
-    setTimeout(()=>{ idx++; renderQ(); }, 700);
+    const fb = document.getElementById('qfeedback');
+    if(i===q.correct){ score++; fb.innerHTML = '🟢 Hebat! Kamu berhasil.'; fb.className='qfeedback ok'; }
+    else{ fb.innerHTML = '🟡 Coba lagi lain kali — jawaban yang tepat sudah ditandai hijau.'; fb.className='qfeedback retry'; }
+    setTimeout(()=>{ idx++; renderQ(); }, 900);
   };
   renderQ();
 }
 
+/* =========================================================================
+   PROYEK OFFICE STUDIO — tambah proyek baru dengan menambah entri baru di
+   array app yang sesuai (word/excel/ppt). Setiap proyek: id (unik), icon,
+   title, tujuan, instruksi, langkah (array langkah kerja), checklist
+   (array syarat sebelum ditandai selesai), dan template opsional untuk
+   mengisi awal area kerja.
+   ========================================================================= */
+const PROJECTS = {
+  word: [
+    { id:'biodata', icon:'🌟', title:'Biodata Saya', tujuan:'Membuat biodata diri sendiri yang rapi menggunakan Word.',
+      instruksi:'Isi data dirimu pada dokumen di bawah, lalu format agar mudah dibaca.',
+      langkah:['Tulis judul "BIODATA DIRI" lalu buat tebal (bold)','Isi Nama, Kelas, Alamat, Hobi, dan Cita-cita masing-masing di baris baru','Gunakan bullet list untuk bagian Hobi jika lebih dari satu','Rapikan perataan teks agar mudah dibaca'],
+      checklist:['Judul sudah ditulis tebal (bold)','Semua data diri (Nama, Kelas, Alamat, Hobi, Cita-cita) sudah diisi','Teks sudah rapi dan mudah dibaca'],
+      template:'BIODATA DIRI\n\nNama: \nKelas: \nAlamat: \nHobi: \nCita-cita: ' },
+    { id:'surat', icon:'✉️', title:'Surat Sederhana', tujuan:'Membuat surat sederhana untuk teman atau guru.',
+      instruksi:'Tulis surat singkat dengan bagian pembuka, isi, dan penutup.',
+      langkah:['Tulis tempat & tanggal di baris pertama','Tulis salam pembuka, misalnya "Untuk sahabatku,"','Tulis isi surat singkat, minimal 2 kalimat','Tutup dengan salam penutup dan nama pengirim'],
+      checklist:['Ada tempat & tanggal','Ada salam pembuka dan penutup','Isi surat sudah ditulis dengan jelas'],
+      template:'Lumajang, ...\n\nUntuk sahabatku,\n\n[Tulis isi suratmu di sini]\n\nSahabatmu,\n[Namamu]' },
+    { id:'jadwal-pelajaran', icon:'📅', title:'Jadwal Pelajaran', tujuan:'Membuat jadwal pelajaran mingguan yang rapi menggunakan tabel.',
+      instruksi:'Buat tabel jadwal pelajaran dari Senin sampai Jumat.',
+      langkah:['Buka tab Insert, klik "+ Tabel" untuk menyisipkan tabel','Tulis nama hari (Senin-Jumat) sebagai judul kolom','Isi mata pelajaran tiap jam di baris tabel','Tambahkan baris baru dari tab Insert jika jam pelajaran masih kurang'],
+      checklist:['Tabel jadwal sudah dibuat','Nama hari sudah lengkap Senin-Jumat','Mata pelajaran sudah diisi di tiap sel'],
+      template:'JADWAL PELAJARAN\n\n(Buat tabel jadwal lewat tombol + Tabel di tab Insert di bawah ini)' },
+    { id:'daftar-kegiatan', icon:'📋', title:'Daftar Kegiatan', tujuan:'Membuat daftar kegiatan harian yang tersusun rapi.',
+      instruksi:'Tulis daftar kegiatanmu menggunakan bullet atau nomor.',
+      langkah:['Tulis judul "Daftar Kegiatanku"','Buka tab Home, gunakan Numbering untuk kegiatan berurutan waktu (pagi-siang-sore)','Tulis minimal 5 kegiatan'],
+      checklist:['Judul sudah ditulis','Minimal 5 kegiatan sudah tercantum','Menggunakan bullet/nomor, bukan paragraf'],
+      template:'Daftar Kegiatanku\n\n1. \n2. \n3. \n4. \n5. ' },
+    { id:'poster-sederhana', icon:'🖼️', title:'Poster Sederhana', tujuan:'Membuat poster berisi ajakan/informasi memadukan teks besar dan gambar.',
+      instruksi:'Buat judul besar sebagai pesan utama, lalu tambahkan penjelasan singkat dan gambar pendukung.',
+      langkah:['Tulis judul besar dan tebal sebagai inti pesan poster','Buka tab Home, buat judul rata tengah','Tulis 1-2 kalimat penjelasan di bawah judul','Buka tab Insert, tambahkan gambar/ikon pendukung'],
+      checklist:['Judul besar, tebal, dan rata tengah','Ada kalimat penjelasan singkat','Sudah menambahkan gambar/ikon pendukung'],
+      template:'AYO JAGA KEBERSIHAN SEKOLAH!\n\n[Tulis penjelasan singkat di sini]' }
+  ],
+  excel: [
+    { id:'tabel-nilai', icon:'📊', title:'Tabel Nilai', tujuan:'Membuat tabel nilai dan menghitung nilai rata-rata memakai rumus.',
+      instruksi:'Isi tabel dengan nama teman & nilai, lalu gunakan rumus untuk menghitung.',
+      langkah:['Isi kolom A dengan nama, kolom B dengan nilai','Isi minimal 4 baris data','Buka tab Formulas, coba tombol =SUM(B) atau =AVERAGE(B)','Catat hasilnya'],
+      checklist:['Tabel berisi minimal 4 nama & nilai','Sudah mencoba rumus SUM atau AVERAGE','Data terlihat rapi'] },
+    { id:'daftar-belanja', icon:'🛒', title:'Daftar Belanja', tujuan:'Membuat daftar belanja lengkap dengan harga dan totalnya.',
+      instruksi:'Isi nama barang di kolom A dan harga di kolom B, lalu hitung totalnya.',
+      langkah:['Isi kolom A dengan nama barang','Isi kolom B dengan harga masing-masing barang','Buka tab Home, coba tombol Rp Format Angka untuk merapikan harga','Buka tab Formulas, hitung total dengan =SUM(B)'],
+      checklist:['Minimal 4 barang sudah diisi','Harga sudah diformat Rupiah','Total sudah dihitung dengan rumus SUM'] },
+    { id:'catatan-keuangan', icon:'💰', title:'Catatan Keuangan Sederhana', tujuan:'Mencatat pemasukan dan pengeluaran sederhana, lalu menghitung sisanya.',
+      instruksi:'Isi kolom A dengan keterangan, kolom B dengan jumlah uang, lalu hitung totalnya.',
+      langkah:['Isi kolom A dengan keterangan (misalnya "Uang saku", "Beli buku")','Isi kolom B dengan jumlah uang (pakai angka minus untuk pengeluaran)','Buka tab Home, coba Rp Format Angka','Buka tab Formulas, hitung total dengan =SUM(B)'],
+      checklist:['Minimal 4 catatan transaksi sudah diisi','Sudah membedakan pemasukan dan pengeluaran','Total sudah dihitung dengan SUM'] },
+    { id:'data-barang', icon:'📦', title:'Data Barang', tujuan:'Membuat data barang lengkap dengan jumlah stoknya.',
+      instruksi:'Isi kolom A dengan nama barang dan kolom B dengan jumlah stok.',
+      langkah:['Isi kolom A dengan nama barang','Isi kolom B dengan jumlah stok tiap barang','Buka tab Data, coba urutkan barang dari A-Z','Buka tab Formulas, hitung total stok dengan =SUM(B)'],
+      checklist:['Minimal 4 barang sudah didata','Sudah mencoba mengurutkan data','Total stok sudah dihitung'] },
+    { id:'rekap-olahraga', icon:'🏆', title:'Rekap Nilai Olahraga', tujuan:'Merekap nilai olahraga teman sekelas dan mencari nilai tertinggi.',
+      instruksi:'Isi nama dan nilai olahraga, lalu cari nilai tertinggi dan rata-ratanya.',
+      langkah:['Isi kolom A dengan nama, kolom B dengan nilai olahraga','Isi minimal 4 data','Buka tab Formulas, coba =SUM(B) dan =AVERAGE(B)','Catat siapa yang mendapat nilai tertinggi'],
+      checklist:['Minimal 4 nama & nilai sudah diisi','Sudah mencoba rumus AVERAGE','Sudah mengetahui nilai tertinggi'] }
+  ],
+  ppt: [
+    { id:'presentasi-diri', icon:'🎤', title:'Presentasi Tentang Saya', tujuan:'Membuat slide perkenalan diri yang menarik.',
+      instruksi:'Isi judul dengan namamu dan isi slide dengan informasi singkat tentang dirimu.',
+      langkah:['Tulis judul slide dengan namamu','Isi 3-4 poin singkat: asal sekolah, hobi, cita-cita, hal favorit','Buka tab Design untuk memilih warna slide yang kamu suka','Cek slide agar tidak terlalu penuh teks'],
+      checklist:['Judul berisi nama','Isi slide singkat & jelas (poin-poin, bukan paragraf)','Sudah memilih warna tema'],
+      template:{title:'Perkenalkan, Saya ...', body:'Asal sekolah: \nHobi: \nCita-cita: \nHal favorit: '} },
+    { id:'bagian-tumbuhan', icon:'🌱', title:'Bagian Tumbuhan', tujuan:'Membuat slide edukatif tentang bagian-bagian tumbuhan.',
+      instruksi:'Jelaskan bagian-bagian tumbuhan secara singkat pada satu slide.',
+      langkah:['Tulis judul "Bagian-Bagian Tumbuhan"','Sebutkan minimal 3 bagian tumbuhan beserta fungsinya secara singkat','Buka tab Insert, tambahkan ikon agar lebih menarik'],
+      checklist:['Judul sudah sesuai topik','Minimal 3 bagian tumbuhan disebutkan','Sudah menambahkan ikon pendukung'],
+      template:{title:'Bagian-Bagian Tumbuhan', body:'Akar: menyerap air dan unsur hara\nBatang: menopang tumbuhan\nDaun: tempat fotosintesis'} },
+    { id:'sekolahku', icon:'🏫', title:'Sekolahku', tujuan:'Membuat slide yang memperkenalkan sekolah tempat belajar.',
+      instruksi:'Ceritakan tentang sekolahmu secara singkat dalam satu slide.',
+      langkah:['Tulis judul "Sekolahku"','Tulis nama sekolah, lokasi singkat, dan satu hal yang kamu suka dari sekolah','Buka tab Insert, tambahkan ikon sekolah/buku','Buka tab Design, pilih warna yang sesuai'],
+      checklist:['Judul sesuai topik "Sekolahku"','Informasi sekolah sudah singkat dan jelas','Sudah menambahkan ikon pendukung'],
+      template:{title:'Sekolahku', body:'Nama sekolah: \nLokasi: \nHal yang aku suka: '} },
+    { id:'budaya-indonesia', icon:'🇮🇩', title:'Budaya Indonesia', tujuan:'Membuat slide edukatif tentang salah satu budaya Indonesia.',
+      instruksi:'Pilih satu budaya (tarian, makanan, pakaian adat, dll) dan jelaskan secara singkat.',
+      langkah:['Tulis judul nama budaya yang dipilih','Tulis asal daerah dan penjelasan singkat (2-3 poin)','Buka tab Insert, tambahkan ikon pendukung','Buka tab Transitions, pilih transisi yang sesuai'],
+      checklist:['Judul sudah sesuai budaya yang dipilih','Penjelasan singkat & jelas (poin-poin)','Sudah mencoba memilih transisi'],
+      template:{title:'Tari Saman', body:'Asal daerah: Aceh\nKeunikan: Ditarikan sambil duduk berbaris\nDimainkan saat: Acara adat & perayaan'} },
+    { id:'hobi-saya', icon:'🎨', title:'Hobi Saya', tujuan:'Membuat slide yang menceritakan hobi kesukaanmu.',
+      instruksi:'Ceritakan hobimu dan alasan menyukainya dalam poin-poin singkat.',
+      langkah:['Tulis judul "Hobi Saya"','Tulis nama hobi dan alasan menyukainya','Buka tab Insert, tambahkan media pendukung','Buka tab Design, pilih warna tema yang mencerminkan hobimu'],
+      checklist:['Judul sesuai topik "Hobi Saya"','Alasan menyukai hobi sudah dijelaskan singkat','Sudah memilih warna tema'],
+      template:{title:'Hobi Saya', body:'Hobiku: \nKenapa aku suka: \nSudah berapa lama: '} }
+  ]
+};
+let studioActiveProject = {word:null, excel:null, ppt:null};
+
 function goStudio(){
   stopSpeech();
   setActiveTab('studio');
-  let html = `<h1 class="page-title">Studio Latihan</h1>
-  <p class="page-sub">Berlatih bebas di ketiga aplikasi — ribbon-nya benar-benar bisa diklik, seperti aplikasi Office asli. Hasil karyamu bisa disimpan ke Galeri Karya.</p>
+  let html = `<h1 class="page-title">Office Studio</h1>
+  <p class="page-sub">Pilih proyek terarah lengkap dengan tujuan dan checklist, atau berlatih bebas — ribbon-nya benar-benar bisa diklik, seperti aplikasi Office asli. Hasil karyamu tersimpan di Karya Saya.</p>
   <div class="abk-bar" id="studioTabs"></div>
   <div id="studioContent"></div>`;
   document.getElementById('viewRoot').innerHTML = html;
@@ -1424,17 +1679,65 @@ function renderStudioTabs(active){
 function buildStudioApp(app){
   const content = document.getElementById('studioContent');
   const filenames = {word:'Dokumen1 - Word', excel:'BukuKerja1 - Excel', ppt:'Presentasi1 - PowerPoint'};
-  content.innerHTML = `<div class="office-window">
-    <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">${filenames[app]}</span></div>
-    <div class="office-ribbon" id="ribbon-${app}"></div>
-    <div class="office-body"><div id="toolbar-${app}"></div>${studioCanvasHtml(app)}</div>
-  </div>`;
+  content.innerHTML = `
+    <div class="project-picker" id="projectPicker-${app}"></div>
+    <div id="projectPanel-${app}"></div>
+    <div class="office-window">
+      <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">${filenames[app]}</span></div>
+      <div class="office-ribbon" id="ribbon-${app}"></div>
+      <div class="office-body"><div id="toolbar-${app}"></div>${studioCanvasHtml(app)}</div>
+    </div>`;
   setStudioRibbonTab(app, 'Home');
+  selectStudioProject(app, studioActiveProject[app] ? studioActiveProject[app].id : null);
+}
+function renderProjectPicker(app){
+  const active = studioActiveProject[app];
+  let chips = `<button class="project-chip ${!active?'active':''}" onclick="selectStudioProject('${app}', null)">✏️ Latihan Bebas</button>`;
+  PROJECTS[app].forEach(p=>{ chips += `<button class="project-chip ${active&&active.id===p.id?'active':''}" onclick="selectStudioProject('${app}','${p.id}')">${p.icon} ${p.title}</button>`; });
+  document.getElementById('projectPicker-'+app).innerHTML = chips;
+}
+function renderProjectPanel(app){
+  const proj = studioActiveProject[app];
+  const el = document.getElementById('projectPanel-'+app);
+  if(!proj){ el.innerHTML=''; return; }
+  el.innerHTML = `<div class="project-panel">
+    <h4>${proj.icon} ${proj.title}</h4>
+    <div class="pp-goal"><strong>Tujuan:</strong> ${proj.tujuan}</div>
+    <div class="pp-goal">${proj.instruksi}</div>
+    <ol>${proj.langkah.map(l=>`<li>${l}</li>`).join('')}</ol>
+    <div style="font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:6px;">Checklist sebelum ditandai selesai:</div>
+    <div class="project-checklist" id="projectChecklist-${app}">${proj.checklist.map((c,i)=>`<label class="checklist-item"><input type="checkbox" id="pjck-${app}-${i}"><span>${c}</span></label>`).join('')}</div>
+  </div>`;
+}
+function selectStudioProject(app, projectId){
+  const proj = projectId ? PROJECTS[app].find(p=>p.id===projectId) : null;
+  studioActiveProject[app] = proj;
+  renderProjectPicker(app);
+  renderProjectPanel(app);
+  if(proj && proj.template){
+    if(app==='word'){ const ed=document.getElementById('studioWord'); if(ed) ed.innerText = proj.template; }
+    if(app==='ppt'){ const t=document.getElementById('studioPptTitle'), b=document.getElementById('studioPptBody'); if(t) t.value=proj.template.title; if(b) b.value=proj.template.body; }
+  }
+  renderSaveButtons(app);
+}
+function renderSaveButtons(app){
+  const el = document.getElementById('studioSaveBtns-'+app);
+  if(!el) return;
+  const proj = studioActiveProject[app];
+  const btnClass = 'btn-'+app;
+  if(proj){
+    el.innerHTML = `<div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-sm btn-outline" onclick="saveWork('${app}','dikerjakan')">💾 Simpan Progres</button>
+      <button class="btn btn-sm ${btnClass}" onclick="saveWork('${app}','selesai')">✅ Tandai Proyek Selesai (+50 XP)</button>
+    </div>`;
+  } else {
+    el.innerHTML = `<button class="btn btn-sm ${btnClass}" onclick="saveWork('${app}','latihan')">Simpan ke Karya Saya</button>`;
+  }
 }
 function studioCanvasHtml(app){
   if(app==='word'){
     return `<div class="word-editor" id="studioWord" contenteditable="true" style="min-height:280px;margin-top:14px;">Tulis dokumen bebasmu di sini...</div>
-      <div style="margin-top:16px;"><button class="btn btn-sm btn-word" onclick="saveWork('word')">Simpan ke Galeri</button></div>`;
+      <div style="margin-top:16px;" id="studioSaveBtns-word"></div>`;
   } else if(app==='excel'){
     return `<table class="grid-sheet" id="studioExcel" style="margin-top:14px;"><tr><th></th><th>A</th><th>B</th><th>C</th></tr>
         <tr><td class="label">1</td><td><input></td><td><input></td><td><input></td></tr>
@@ -1444,14 +1747,14 @@ function studioCanvasHtml(app){
         <tr><td class="label">5</td><td><input></td><td><input></td><td><input></td></tr></table>
       <div class="bar-chart" id="studioBarChart" style="display:none;"></div>
       <div id="studioFormulaResult" style="margin-top:10px;font-size:13px;color:var(--ink-soft);font-weight:600;"></div>
-      <div style="margin-top:16px;"><button class="btn btn-sm btn-excel" onclick="saveWork('excel')">Simpan ke Galeri</button></div>`;
+      <div style="margin-top:16px;" id="studioSaveBtns-excel"></div>`;
   } else {
     return `<div class="slide-canvas" id="studioSlideCanvas" style="max-width:640px;margin-top:14px;"><input class="slide-title" id="studioPptTitle" value="Judul Presentasiku">
       <textarea class="slide-body" id="studioPptBody" rows="4">Poin pertama
 Poin kedua
 Poin ketiga</textarea>
       <div id="studioMediaRow" style="display:flex;gap:8px;margin-top:8px;font-size:22px;"></div></div>
-      <div style="margin-top:16px;"><button class="btn btn-sm btn-ppt" onclick="saveWork('ppt')">Simpan ke Galeri</button></div>`;
+      <div style="margin-top:16px;" id="studioSaveBtns-ppt"></div>`;
   }
 }
 function setStudioRibbonTab(app, tab){
@@ -1597,30 +1900,45 @@ function playStudioTransition(type, el){
   void canvas.offsetWidth;
   canvas.classList.add('slide-'+type);
 }
-function saveWork(type){
+function saveWork(type, status){
+  status = status || 'latihan';
   const u = currentUser(); let content='', label='';
   if(type==='word'){ content = document.getElementById('studioWord').innerText.trim(); label='Dokumen Word'; }
   if(type==='excel'){ const inputs = document.querySelectorAll('#studioExcel input'); content = Array.from(inputs).map(i=>i.value).filter(Boolean).join(' | '); label='Tabel Excel'; }
   if(type==='ppt'){ const t = document.getElementById('studioPptTitle').value; const b = document.getElementById('studioPptBody').value; content = t + '\n' + b; label='Slide PowerPoint'; }
   if(!content){ alert('Isi dulu latihanmu sebelum disimpan.'); return; }
-  u.works.push({ type, label, content, date: new Date().toLocaleDateString('id-ID') });
-  u.xp += 5; saveCurrentUser(u); renderNav();
-  alert('Tersimpan ke Galeri Karya. +5 XP');
+  const proj = studioActiveProject[type];
+  if(proj && status==='selesai'){
+    const boxes = document.querySelectorAll('#projectChecklist-'+type+' input[type=checkbox]');
+    const allChecked = boxes.length>0 && Array.from(boxes).every(b=>b.checked);
+    if(!allChecked){ alert('Centang dulu semua checklist proyek sebelum menandai selesai — kamu hampir sampai!'); return; }
+  }
+  u.works.push({ type, label: proj?proj.title:label, content, date: new Date().toLocaleDateString('id-ID'), status, projectId: proj?proj.id:null, projectIcon: proj?proj.icon:null });
+  u.xp += (proj && status==='selesai') ? 50 : 5;
+  const newBadges = checkBadges(u);
+  saveCurrentUser(u); renderNav();
+  newBadges.forEach((b,i)=>showBadgeToast(b,i));
+  if(proj && status==='selesai') alert('🎉 Proyek selesai! Kerja bagus. +50 XP');
+  else if(proj && status==='dikerjakan') alert('💾 Progres proyek tersimpan. +5 XP. Lanjutkan kapan saja!');
+  else alert('🟢 Hebat! Tersimpan ke Karya Saya. +5 XP');
 }
 
 function goGallery(){
   stopSpeech();
   setActiveTab('gallery');
   const u = currentUser();
-  let html = `<h1 class="page-title">Galeri Karya</h1><p class="page-sub">Semua hasil latihan yang sudah kamu simpan dari Studio Latihan.</p>`;
-  if(!u.works.length){ html += `<div class="empty-note">Belum ada karya tersimpan. Coba buka Studio Latihan dan simpan hasil latihanmu.</div>`; }
+  let html = `<h1 class="page-title">Karya Saya</h1><p class="page-sub">Portofolio hasil latihan dan proyekmu dari Office Studio.</p>`;
+  if(!u.works.length){ html += `<div class="empty-note">Belum ada karya tersimpan. Coba buka Office Studio dan simpan hasil latihan atau proyekmu.</div>`; }
   else { html += `<div class="gallery-grid">`; u.works.slice().reverse().forEach(w=>{
-    html += `<div class="gallery-card"><div class="gallery-thumb">${escapeHtml(w.content).slice(0,180)}</div>
-    <div class="gallery-meta"><strong style="font-size:13px;">${w.label}</strong><span>${w.date}</span></div></div>`; }); html += `</div>`; }
+    const statusInfo = w.status==='selesai' ? {cls:'selesai', label:'🟢 Selesai'} : w.status==='dikerjakan' ? {cls:'dikerjakan', label:'🟡 Sedang Dikerjakan'} : {cls:'selesai', label:'🟢 Latihan Bebas'};
+    html += `<div class="gallery-card"><div class="gallery-thumb">${w.projectIcon?w.projectIcon+' ':''}${escapeHtml(w.content).slice(0,160)}</div>
+    <div class="gallery-meta"><div><strong style="font-size:13px;display:block;">${w.label}</strong><span class="status-pill ${statusInfo.cls}" style="margin-top:4px;display:inline-block;">${statusInfo.label}</span></div><span>${w.date}</span></div></div>`; }); html += `</div>`; }
   document.getElementById('viewRoot').innerHTML = html;
 }
 function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+let adminUsersCache = [];
+let adminFilter = 'all';
 async function goAdmin(){
   stopSpeech();
   setActiveTab('admin');
@@ -1628,25 +1946,54 @@ async function goAdmin(){
   let allUsers;
   try{ allUsers = await DB.allUsers(); }
   catch(e){ console.error(e); document.getElementById('viewRoot').innerHTML = `<h1 class="page-title">Dashboard Admin</h1><div class="empty-note">Gagal memuat data dari Firebase. Periksa firebaseConfig dan koneksi internet.</div>`; return; }
-  const users = allUsers.filter(u=>u.role==='siswa');
-  const totalModules = totalModuleCount(); const totalLevels = totalLevelCount();
+  adminUsersCache = allUsers.filter(u=>u.role==='siswa');
+  adminFilter = 'all';
+  renderAdminView();
+}
+function renderAdminView(){
+  const users = adminUsersCache;
+  const totalLevels = totalLevelCount();
   const avgXp = users.length ? Math.round(users.reduce((a,u)=>a+u.xp,0)/users.length) : 0;
-  const avgUnderstanding = users.length ? Math.round(users.reduce((a,u)=>{ let dl=0; TRACKS.forEach(t=>t.modules.forEach(m=>dl+=doneLevelsCount(u,m))); return a + (dl/totalLevels*100); },0)/users.length) : 0;
-  const totalWorks = users.reduce((a,u)=>a+u.works.length,0);
+  const totalWorks = users.reduce((a,u)=>a+(u.works?u.works.length:0),0);
+  const totalBadges = users.reduce((a,u)=>a+(u.badges?u.badges.length:0),0);
+  const withPct = users.map(u=>{
+    const p = {}; TRACKS.forEach(t=>{ p[t.id] = trackPercent(u,t); });
+    let dl=0; TRACKS.forEach(t=>t.modules.forEach(m=>dl+=doneLevelsCount(u,m)));
+    return { u, p, dl, overall: Math.round(dl/totalLevels*100) };
+  });
+  const avgUnderstanding = withPct.length ? Math.round(withPct.reduce((a,r)=>a+r.overall,0)/withPct.length) : 0;
+
+  let filtered = withPct.slice();
+  if(adminFilter==='word') filtered.sort((a,b)=>b.p.word-a.p.word);
+  else if(adminFilter==='excel') filtered.sort((a,b)=>b.p.excel-a.p.excel);
+  else if(adminFilter==='ppt') filtered.sort((a,b)=>b.p.ppt-a.p.ppt);
+  else if(adminFilter==='done') filtered = filtered.filter(r=>r.overall>=100);
+  else if(adminFilter==='ongoing') filtered = filtered.filter(r=>r.overall<100);
+  else filtered.sort((a,b)=>b.u.xp-a.u.xp);
+
+  const filters = [
+    {id:'all', label:'Semua Siswa'}, {id:'word', label:'📝 Word'}, {id:'excel', label:'📊 Excel'},
+    {id:'ppt', label:'📽️ PowerPoint'}, {id:'done', label:'🟢 Selesai Semua'}, {id:'ongoing', label:'🟡 Belum Selesai'}
+  ];
+
   let html = `<h1 class="page-title">Dashboard Admin</h1><p class="page-sub">Pantau perkembangan seluruh siswa yang terdaftar.</p>
   <div class="stat-row">
     <div class="stat-box"><div class="num">${users.length}</div><div class="lbl">Total Siswa</div></div>
     <div class="stat-box"><div class="num">${avgXp}</div><div class="lbl">Rata-rata XP</div></div>
     <div class="stat-box"><div class="num">${avgUnderstanding}%</div><div class="lbl">Rata-rata Pemahaman</div></div>
     <div class="stat-box"><div class="num">${totalWorks}</div><div class="lbl">Total Karya Tersimpan</div></div>
+    <div class="stat-box"><div class="num">🏅 ${totalBadges}</div><div class="lbl">Total Badge Diraih</div></div>
   </div>
-  <table class="admin-table"><tr><th>Nama</th><th>Username</th><th>XP</th><th>Level Selesai</th><th>Pemahaman</th><th>Karya</th></tr>`;
-  if(!users.length){ html += `<tr><td colspan="6" style="text-align:center;color:var(--ink-soft);">Belum ada siswa yang mendaftar.</td></tr>`; }
-  else { users.forEach(u=>{ let dl=0; TRACKS.forEach(t=>t.modules.forEach(m=>dl+=doneLevelsCount(u,m))); const pct = Math.round(dl/totalLevels*100);
-    html += `<tr><td>${u.name}</td><td>${u.username}</td><td>${u.xp}</td><td>${dl}/${totalLevels}</td><td>${pct}%</td><td>${u.works.length}</td></tr>`; }); }
+  <div class="abk-bar">${filters.map(f=>`<button class="abk-btn ${adminFilter===f.id?'active':''}" onclick="setAdminFilter('${f.id}')">${f.label}</button>`).join('')}</div>
+  <table class="admin-table"><tr><th>Nama</th><th>Username</th><th>📝 Word</th><th>📊 Excel</th><th>📽️ PowerPoint</th><th>XP</th><th>Badge</th><th>Karya</th></tr>`;
+  if(!filtered.length){ html += `<tr><td colspan="8" style="text-align:center;color:var(--ink-soft);">Tidak ada siswa yang cocok dengan filter ini.</td></tr>`; }
+  else { filtered.forEach(r=>{ const u=r.u;
+    const badgeIcons = (u.badges||[]).map(id=>{ const b=BADGES.find(x=>x.id===id); return b?b.icon:''; }).join('') || '—';
+    html += `<tr><td>${u.name}</td><td>${u.username}</td><td>${r.p.word}%</td><td>${r.p.excel}%</td><td>${r.p.ppt}%</td><td>${u.xp}</td><td title="${(u.badges||[]).length} badge">${badgeIcons}</td><td>${(u.works||[]).length}</td></tr>`; }); }
   html += `</table>`;
   document.getElementById('viewRoot').innerHTML = html;
 }
+function setAdminFilter(id){ adminFilter = id; renderAdminView(); }
 </script>
 </body>
 </html>

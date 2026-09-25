@@ -5,15 +5,16 @@ Buku belajar digital interaktif untuk **Microsoft Word, Excel, dan PowerPoint** 
 ## Fitur
 
 - **Login & Daftar** aman lewat **Firebase Authentication** — siswa mendaftar sendiri; guru/admin mendaftar dengan kode admin.
-- **18 modul belajar** (6 modul Word, 6 modul Excel, 6 modul PowerPoint), masing-masing dipecah menjadi **5 level** berjenjang.
-- **90 level** total dengan status 4 tingkat: 🔒 Terkunci, ▶️ Belum dimulai, 🟡 Sedang belajar, 🟢 Selesai — 180 soal kuis keseluruhan.
+- **19 modul belajar** (7 modul Word, 6 modul Excel, 6 modul PowerPoint), masing-masing dipecah menjadi **5 level** berjenjang.
+- **95 level** total dengan status 4 tingkat: 🔒 Terkunci, ▶️ Belum dimulai, 🟡 Sedang belajar, 🟢 Selesai — 190 soal kuis keseluruhan.
 - **Beranda** dengan kartu "Lanjutkan Belajar" dan roadmap visual perjalanan Word → Excel → PowerPoint.
 - **Profil Saya** — level pengguna, total XP, streak belajar harian, progress bar per aplikasi.
-- **Studio Latihan** — ribbon fungsional ala Office asli (Home/Insert/Layout/dst) per aplikasi, bisa disimpan ke Galeri Karya.
+- **Office Studio berbasis proyek** — ribbon fungsional ala Office asli (Home/Insert/Layout/dst) per aplikasi; **15 proyek terarah** (5 per aplikasi: Biodata Saya, Surat Sederhana, Jadwal Pelajaran, Daftar Kegiatan, Poster Sederhana di Word; Tabel Nilai, Daftar Belanja, Catatan Keuangan, Data Barang, Rekap Nilai Olahraga di Excel; Presentasi Tentang Saya, Bagian Tumbuhan, Sekolahku, Budaya Indonesia, Hobi Saya di PowerPoint) lengkap dengan tujuan, langkah, dan checklist — atau Latihan Bebas seperti biasa.
+- **Karya Saya** — portofolio dengan status 🟢 Selesai / 🟡 Sedang Dikerjakan; menyelesaikan proyek (checklist lengkap) memberi bonus +50 XP.
 - **Mode ABK** — Baca / Visual / Audio / Praktik, bisa dipilih satu, beberapa, atau semua lewat menu terpisah.
 - **Mode gelap/terang**.
-- **Dashboard Admin/Guru** — memantau XP, level selesai, persentase pemahaman, dan karya setiap siswa.
-- **Sistem XP & streak** — siswa mendapat poin setiap menyelesaikan level/kuis/karya, dan streak bertambah tiap hari aktif belajar.
+- **Dashboard Admin/Guru** — breakdown progres per aplikasi (Word/Excel/PowerPoint), badge tiap siswa, filter (Semua/per aplikasi/Selesai Semua/Belum Selesai), dan jumlah karya.
+- **Sistem badge & XP dengan bahasa positif** — 11 badge otomatis (Word Pemula, Excel Explorer, PowerPoint Creator, Data Explorer, Presentation Maker, Office Beginner, Office Creator, Kolektor Proyek, Bendahara Cilik, Pencerita Budaya, Office Master), muncul sebagai notifikasi melayang saat didapat; umpan balik kuis pakai bahasa membangun ("Hebat!"/"Coba lagi", bukan "Salah").
 
 ## Struktur File
 
@@ -90,10 +91,12 @@ Kode ini bisa diganti langsung di kode HTML pada bagian `const ADMIN_CODE = "OFF
 Versi ini adalah **Fase 1** dari rencana pengembangan OfficeCraft Studio 2.0:
 
 - ✅ **Fase 1** — Firebase Authentication, identitas visual baru, halaman Profil, roadmap Beranda, status level 4 tingkat, streak harian.
-- ⏳ **Fase 2** — Restrukturisasi data materi jadi format modular (courses/modules) + tambah sub-materi (Copy/Cut/Paste, Sort/Filter/Diagram, Animasi, dll).
-- ⏳ **Fase 3** — Sistem badge otomatis, bahasa kuis lebih positif.
-- ⏳ **Fase 4** — Office Studio berbasis proyek terarah (Biodata, Tabel Nilai, Presentasi Diri) dengan checklist, dan Karya Saya jadi portofolio berstatus.
-- ⏳ **Fase 5** — Dashboard Guru diperluas: breakdown per aplikasi, filter, kolom badge.
+- ✅ **Fase 2** — Data materi didokumentasikan sebagai satu blok "COURSES" yang mudah ditambah, plus modul baru Word: **Edit Cepat (Copy, Cut, Paste, Undo, Redo)**.
+- ✅ **Fase 3** — Sistem badge otomatis (7 badge, tersimpan di Firestore), notifikasi badge melayang, bahasa kuis & hasil belajar dibuat positif.
+- ✅ **Fase 4** — Office Studio berbasis proyek terarah (15 proyek: 5 per aplikasi) dengan tujuan/langkah/checklist, dan Karya Saya jadi portofolio berstatus.
+- ✅ **Fase 5** — Dashboard Guru diperluas: kolom progres per aplikasi (Word/Excel/PowerPoint), kolom badge, filter siswa (per aplikasi / selesai semua / belum selesai).
+
+Kelima fase dari rencana awal OfficeCraft Studio 2.0 sudah selesai. Pengembangan lanjutan (proyek baru, badge baru, dsb) tinggal ditambahkan lewat blok data yang sudah terdokumentasi di dalam kode.
 
 ## Lisensi
 
