@@ -445,13 +445,12 @@
    ========================================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAwABtavcBrSTYRL9mlmHM01z_fbz2wkiA",
-  authDomain: "officecraft-studio.firebaseapp.com",
-  projectId: "officecraft-studio",
-  storageBucket: "officecraft-studio.firebasestorage.app",
-  messagingSenderId: "625737188043",
-  appId: "1:625737188043:web:acea90962a0964a5eb514e",
-  measurementId: "G-5TGEYWHVC3"
+  apiKey: "GANTI_DENGAN_API_KEY_FIREBASE_MU",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
+  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
+  appId: "GANTI_DENGAN_APP_ID"
 };
 
 let fbReady = false;
@@ -1244,24 +1243,41 @@ function toggleAudio(){
   }catch(e){ status.textContent='Browser ini belum mendukung audio.'; }
 }
 
-function buildOfficeChrome(app, innerHtml){
+const RIBBON_TAB_BY_PRACTICE = {
+  'word-plain':'Home', 'word-format':'Home', 'word-list':'Home', 'word-editops':'Home',
+  'word-table':'Insert', 'word-image':'Insert', 'word-layout':'Layout',
+  'excel-basic':'Home', 'excel-format':'Home', 'excel-sum':'Formulas', 'excel-stats':'Formulas',
+  'excel-sort':'Data', 'excel-chart':'Insert',
+  'ppt-basic':'Home', 'ppt-checklist':'Home', 'ppt-design':'Design', 'ppt-theme':'Design',
+  'ppt-media':'Insert', 'ppt-transition':'Transitions'
+};
+function buildOfficeChrome(app, innerHtml, activeTab){
   if(app==='word'){
+    const tab = activeTab || 'Home';
+    const tabs = ['Home','Insert','Layout','Review'];
+    const tabsHtml = tabs.map(t=>`<span class="rtab-fake${t===tab?' active rt-word':''}">${t}</span>`).join('');
     return `<div class="office-window">
       <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">Dokumen1 - Word</span></div>
-      <div class="office-ribbon"><span class="rtab-fake active rt-word">Home</span><span class="rtab-fake">Insert</span><span class="rtab-fake">Layout</span><span class="rtab-fake">Review</span></div>
+      <div class="office-ribbon">${tabsHtml}</div>
       <div class="office-body">${innerHtml}</div>
     </div>`;
   } else if(app==='excel'){
+    const tab = activeTab || 'Home';
+    const tabs = ['Home','Insert','Formulas','Data'];
+    const tabsHtml = tabs.map(t=>`<span class="rtab-fake${t===tab?' active rt-excel':''}">${t}</span>`).join('');
     return `<div class="office-window">
       <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">BukuKerja1 - Excel</span></div>
-      <div class="office-ribbon"><span class="rtab-fake active rt-excel">Home</span><span class="rtab-fake">Insert</span><span class="rtab-fake">Formulas</span><span class="rtab-fake">Data</span></div>
+      <div class="office-ribbon">${tabsHtml}</div>
       <div class="office-formulabar"><span class="cellref-box">A1</span><span class="fx-icon">fx</span><span style="color:var(--ink-soft);">Klik salah satu sel di bawah untuk mengedit</span></div>
       <div class="office-body">${innerHtml}</div>
     </div>`;
   } else {
+    const tab = activeTab || 'Home';
+    const tabs = ['Home','Insert','Design','Transitions'];
+    const tabsHtml = tabs.map(t=>`<span class="rtab-fake${t===tab?' active rt-ppt':''}">${t}</span>`).join('');
     return `<div class="office-window">
       <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">Presentasi1 - PowerPoint</span></div>
-      <div class="office-ribbon"><span class="rtab-fake active rt-ppt">Home</span><span class="rtab-fake">Insert</span><span class="rtab-fake">Design</span><span class="rtab-fake">Transitions</span></div>
+      <div class="office-ribbon">${tabsHtml}</div>
       <div class="slide-thumbs"><div class="thumb active"></div><div class="thumb"></div><div class="thumb"></div></div>
       <div class="office-body">${innerHtml}</div>
     </div>`;
@@ -1414,7 +1430,7 @@ function renderPractice(module){
     box.innerHTML = items.map((t,i)=>`<div class="checklist-item"><input type="checkbox" id="ck${i}"><label for="ck${i}">${t}</label></div>`).join('');
   }
   const appType = pt.startsWith('word') ? 'word' : pt.startsWith('excel') ? 'excel' : 'ppt';
-  box.innerHTML = buildOfficeChrome(appType, box.innerHTML);
+  box.innerHTML = buildOfficeChrome(appType, box.innerHTML, RIBBON_TAB_BY_PRACTICE[pt]);
   if(pt==='excel-chart'){ recalcChart(); }
 }
 
