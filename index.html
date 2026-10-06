@@ -445,13 +445,12 @@
    ========================================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAwABtavcBrSTYRL9mlmHM01z_fbz2wkiA",
-  authDomain: "officecraft-studio.firebaseapp.com",
-  projectId: "officecraft-studio",
-  storageBucket: "officecraft-studio.firebasestorage.app",
-  messagingSenderId: "625737188043",
-  appId: "1:625737188043:web:acea90962a0964a5eb514e",
-  measurementId: "G-5TGEYWHVC3"
+  apiKey: "GANTI_DENGAN_API_KEY_FIREBASE_MU",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
+  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
+  appId: "GANTI_DENGAN_APP_ID"
 };
 
 let fbReady = false;
@@ -504,7 +503,7 @@ function syncThemeButtons(){
 }
 function stopSpeech(){ try{ window.speechSynthesis.cancel(); }catch(e){} }
 
-function L(title, lesson, q1, q2){ return {title, lesson, quiz:[q1,q2]}; }
+function L(title, lesson, q1, q2, ribbonTab){ return {title, lesson, quiz:[q1,q2], ribbonTab}; }
 function Q(q, opts, correct){ return {q, opts, correct}; }
 
 /* =========================================================================
@@ -532,19 +531,19 @@ const TRACKS = [
     { id:'w1', title:'Mengenal Word: Ribbon & Dokumen Pertama', desc:'Interface Word dari nol sampai menyimpan dokumen.', practiceType:'word-plain', levels:[
       L('Apa itu Word & Ribbon','<p>Word adalah aplikasi pengolah kata untuk membuat surat, laporan, hingga makalah. Bagian paling atas jendela disebut <strong>Ribbon</strong>, berisi tab-tab seperti Home, Insert, dan Layout.</p><ul><li>Ribbon mengelompokkan perintah agar mudah ditemukan.</li><li>Setiap tab punya "grup" perintah, misalnya grup Font di tab Home.</li></ul>',
         Q('Ribbon pada Word terletak di bagian...', ['Bawah jendela','Atas jendela','Kanan jendela','Tengah dokumen'],1),
-        Q('Fungsi utama Ribbon adalah...', ['Menyimpan file otomatis','Mengelompokkan perintah agar mudah ditemukan','Mengganti bahasa dokumen','Menghapus dokumen'],1)),
+        Q('Fungsi utama Ribbon adalah...', ['Menyimpan file otomatis','Mengelompokkan perintah agar mudah ditemukan','Mengganti bahasa dokumen','Menghapus dokumen'],1), 'Home'),
       L('Tab Home: Pusat Pemformatan','<p>Tab <strong>Home</strong> adalah tab yang paling sering dipakai. Berisi grup Font (jenis & ukuran huruf), grup Paragraph (perataan, bullet), dan grup Styles (gaya judul).</p>',
         Q('Grup Font pada tab Home dipakai untuk mengatur...', ['Ukuran kertas','Jenis dan ukuran huruf','Jumlah halaman','Warna tema'],1),
-        Q('Tab yang paling sering dipakai untuk memformat teks adalah...', ['Insert','Home','View','References'],1)),
+        Q('Tab yang paling sering dipakai untuk memformat teks adalah...', ['Insert','Home','View','References'],1), 'Home'),
       L('Tab Insert: Menambah Konten','<p>Tab <strong>Insert</strong> dipakai untuk menambahkan elemen baru ke dokumen: gambar, tabel, bentuk (shapes), hingga halaman kosong baru.</p><ul><li>Insert &gt; Table untuk menambah tabel.</li><li>Insert &gt; Pictures untuk menambah gambar.</li></ul>',
         Q('Untuk menambahkan tabel baru, gunakan tab...', ['Home','Insert','Layout','Review'],1),
-        Q('Elemen yang TIDAK ditambahkan lewat tab Insert adalah...', ['Gambar','Tabel','Margin halaman','Bentuk (shape)'],2)),
+        Q('Elemen yang TIDAK ditambahkan lewat tab Insert adalah...', ['Gambar','Tabel','Margin halaman','Bentuk (shape)'],2), 'Insert'),
       L('Tab Layout: Pengaturan Halaman','<p>Tab <strong>Layout</strong> mengatur tampilan halaman secara keseluruhan, seperti margin (jarak tepi), orientasi (potret/lanskap), dan jarak antar kolom.</p>',
         Q('Pengaturan margin dan orientasi halaman ada di tab...', ['Home','Insert','Layout','View'],2),
-        Q('Orientasi halaman yang tersedia di Word adalah...', ['Potret dan Lanskap','Vertikal dan Diagonal','Kotak dan Bulat','Besar dan Kecil'],0)),
+        Q('Orientasi halaman yang tersedia di Word adalah...', ['Potret dan Lanskap','Vertikal dan Diagonal','Kotak dan Bulat','Besar dan Kecil'],0), 'Layout'),
       L('Praktik: Dokumen Pertama & Menyimpan','<p>Sekarang gabungkan semuanya: ketik dokumen singkat, lalu simpan dengan <strong>Ctrl+S</strong>. Word menyimpan file dengan format <code>.docx</code> secara default.</p><ul><li>Save menyimpan ke file yang sama.</li><li>Save As menyimpan sebagai file/nama baru.</li></ul>',
         Q('Format file default dokumen Word adalah...', ['.pdf','.docx','.xlsx','.pptx'],1),
-        Q('Untuk menyimpan dokumen dengan nama baru, gunakan...', ['Save','Save As','Print','Undo'],1))
+        Q('Untuk menyimpan dokumen dengan nama baru, gunakan...', ['Save','Save As','Print','Undo'],1), 'Home')
     ]},
     { id:'w2', title:'Format Teks & Paragraf', desc:'Bold, font, perataan, hingga spasi paragraf.', practiceType:'word-format', levels:[
       L('Bold, Italic, Underline','<p>Format dasar teks: <strong>Bold</strong> menebalkan, <em>Italic</em> memiringkan, <u>Underline</u> menggarisbawahi. Ketiganya dipakai untuk menekankan bagian penting.</p>',
@@ -617,19 +616,19 @@ const TRACKS = [
     { id:'w6', title:'Page Layout, Header & Footer', desc:'Orientasi, margin, dan elemen berulang halaman.', practiceType:'word-layout', levels:[
       L('Orientasi Halaman','<p>Orientasi halaman ada dua: <strong>Potret</strong> (vertikal, umum untuk surat/laporan) dan <strong>Lanskap</strong> (horizontal, cocok untuk tabel lebar atau poster).</p>',
         Q('Orientasi halaman horizontal disebut...', ['Potret','Lanskap','Justify','Portrait saja'],1),
-        Q('Orientasi Lanskap paling cocok untuk...', ['Surat resmi 1 kolom','Tabel yang lebar','Puisi pendek','Catatan kaki'],1)),
+        Q('Orientasi Lanskap paling cocok untuk...', ['Surat resmi 1 kolom','Tabel yang lebar','Puisi pendek','Catatan kaki'],1), 'Layout'),
       L('Margin Halaman','<p><strong>Margin</strong> adalah jarak antara tepi kertas dan area tulisan. Margin yang umum digunakan adalah 2.54 cm (1 inci) di semua sisi.</p>',
         Q('Margin adalah jarak antara...', ['Dua paragraf','Tepi kertas dan area tulisan','Dua kata','Dua halaman'],1),
-        Q('Margin standar yang umum dipakai adalah...', ['0 cm','2.54 cm','10 cm','50 cm'],1)),
-      L('Header & Footer Dasar','<p><strong>Header</strong> adalah area berulang di atas setiap halaman (misalnya judul dokumen). <strong>Footer</strong> adalah area berulang di bawah halaman.</p>',
+        Q('Margin standar yang umum dipakai adalah...', ['0 cm','2.54 cm','10 cm','50 cm'],1), 'Layout'),
+      L('Header & Footer Dasar','<p><strong>Header</strong> adalah area berulang di atas setiap halaman (misalnya judul dokumen). <strong>Footer</strong> adalah area berulang di bawah halaman. Keduanya disisipkan lewat tab <strong>Insert</strong>.</p>',
         Q('Area berulang di bagian atas setiap halaman disebut...', ['Footer','Header','Ribbon','Sidebar'],1),
-        Q('Header biasanya diisi dengan...', ['Judul dokumen atau nama bab','Isi utama dokumen','Gambar sampul','Tabel data'],0)),
-      L('Page Number & Page Break','<p><strong>Page number</strong> menambahkan nomor halaman otomatis (biasa di header/footer). <strong>Page break</strong> memaksa konten pindah ke halaman baru.</p>',
+        Q('Header biasanya diisi dengan...', ['Judul dokumen atau nama bab','Isi utama dokumen','Gambar sampul','Tabel data'],0), 'Insert'),
+      L('Page Number & Page Break','<p><strong>Page number</strong> menambahkan nomor halaman otomatis (biasa di header/footer). <strong>Page break</strong> memaksa konten pindah ke halaman baru. Keduanya juga ada di tab <strong>Insert</strong>.</p>',
         Q('Nomor halaman otomatis biasanya diletakkan di...', ['Header atau footer','Tengah paragraf','Judul dokumen','Tabel'],0),
-        Q('Untuk memindahkan konten ke halaman baru secara paksa, gunakan...', ['Page break','Text wrapping','Bullet list','Merge cell'],0)),
+        Q('Untuk memindahkan konten ke halaman baru secara paksa, gunakan...', ['Page break','Text wrapping','Bullet list','Merge cell'],0), 'Insert'),
       L('Praktik: Dokumen Siap Cetak','<p>Gabungkan orientasi, margin, header berisi judul, dan footer berisi nomor halaman untuk menyiapkan dokumen yang rapi dan siap dicetak.</p>',
         Q('Dokumen siap cetak yang rapi sebaiknya memiliki...', ['Margin, header, dan footer yang konsisten','Orientasi acak tiap halaman','Tanpa margin sama sekali','Header berbeda tiap halaman'],0),
-        Q('Kombinasi elemen yang membantu pembaca mengetahui posisi halaman adalah...', ['Page number di header/footer','Warna latar belakang','Font yang besar','Gambar sampul'],0))
+        Q('Kombinasi elemen yang membantu pembaca mengetahui posisi halaman adalah...', ['Page number di header/footer','Warna latar belakang','Font yang besar','Gambar sampul'],0), 'Layout')
     ]},
     { id:'w7', title:'Edit Cepat: Copy, Cut, Paste, Undo & Redo', desc:'Menyalin, memindahkan, dan membatalkan perubahan teks dengan cepat.', practiceType:'word-editops', levels:[
       L('Memilih (Blok) Teks','<p>Sebelum menyalin atau memindahkan teks, kita perlu <strong>memilih (blok)</strong> teks itu dulu — misalnya dengan klik dan menyeret mouse, atau menekan <strong>Ctrl+A</strong> untuk memilih semua teks.</p><ul><li>Teks yang terpilih biasanya ditandai warna biru.</li><li>Memilih teks adalah langkah pertama sebelum copy, cut, atau mengubah format.</li></ul>',
@@ -808,21 +807,21 @@ const TRACKS = [
         Q('Tujuan menambahkan media pendukung pada slide adalah...', ['Memperkuat pesan agar lebih mudah dipahami','Membuat slide lebih rumit','Mengurangi pemahaman audiens','Tidak ada tujuan khusus'],0))
     ]},
     { id:'p4', title:'Transisi & Animasi Slide', desc:'Efek perpindahan dan gerak yang tepat guna.', practiceType:'ppt-transition', levels:[
-      L('Apa itu Transisi','<p><strong>Transisi</strong> adalah efek visual saat berpindah dari satu slide ke slide berikutnya, diatur lewat tab Transitions.</p>',
+      L('Apa itu Transisi','<p><strong>Transisi</strong> adalah efek visual saat berpindah dari satu slide ke slide berikutnya, diatur lewat tab <strong>Transitions</strong>.</p>',
         Q('Efek perpindahan dari satu slide ke slide lain disebut...', ['Animasi','Transisi','Layout','Tema'],1),
-        Q('Transisi diatur melalui tab...', ['Transitions','Insert','Review','Home'],0)),
+        Q('Transisi diatur melalui tab...', ['Transitions','Insert','Review','Home'],0), 'Transitions'),
       L('Jenis-jenis Transisi','<p>Beberapa transisi umum: <strong>Fade</strong> (memudar), <strong>Push</strong> (mendorong), <strong>Zoom</strong> (memperbesar/kecil). Transisi sederhana lebih profesional dibanding efek berlebihan.</p>',
         Q('Transisi yang membuat slide memudar disebut...', ['Push','Fade','Zoom','Wipe saja tersedia'],1),
-        Q('Transisi yang dianggap lebih profesional untuk presentasi formal adalah...', ['Efek yang sederhana seperti Fade','Efek paling ramai dan berputar-putar','Tidak memakai transisi sama sekali selalu lebih baik','Transisi acak tiap slide'],0)),
-      L('Apa itu Animasi Objek','<p><strong>Animasi</strong> adalah efek gerak pada teks atau objek di dalam satu slide, berbeda dengan transisi yang berlaku antar slide.</p>',
+        Q('Transisi yang dianggap lebih profesional untuk presentasi formal adalah...', ['Efek yang sederhana seperti Fade','Efek paling ramai dan berputar-putar','Tidak memakai transisi sama sekali selalu lebih baik','Transisi acak tiap slide'],0), 'Transitions'),
+      L('Apa itu Animasi Objek','<p><strong>Animasi</strong> adalah efek gerak pada teks atau objek di dalam satu slide, diatur lewat tab <strong>Animations</strong> — berbeda dengan transisi yang berlaku antar slide.</p>',
         Q('Efek gerak pada teks/objek dalam satu slide disebut...', ['Transisi','Animasi','Format','Border'],1),
-        Q('Perbedaan animasi dan transisi adalah...', ['Animasi antar slide, transisi dalam satu slide','Animasi dalam satu slide, transisi antar slide','Keduanya sama persis','Animasi hanya untuk teks'],1)),
-      L('Animasi Masuk, Keluar, Penekanan','<p>Animasi terbagi jadi: <strong>Entrance</strong> (objek muncul), <strong>Exit</strong> (objek menghilang), dan <strong>Emphasis</strong> (menekankan objek yang sudah ada, misalnya berkedip).</p>',
+        Q('Perbedaan animasi dan transisi adalah...', ['Animasi antar slide, transisi dalam satu slide','Animasi dalam satu slide, transisi antar slide','Keduanya sama persis','Animasi hanya untuk teks'],1), 'Animations'),
+      L('Animasi Masuk, Keluar, Penekanan','<p>Animasi terbagi jadi: <strong>Entrance</strong> (objek muncul), <strong>Exit</strong> (objek menghilang), dan <strong>Emphasis</strong> (menekankan objek yang sudah ada, misalnya berkedip) — semuanya diatur di tab <strong>Animations</strong>.</p>',
         Q('Animasi yang membuat objek muncul ke slide disebut...', ['Entrance','Exit','Emphasis','Transisi'],0),
-        Q('Animasi yang menekankan objek yang sudah ada di slide disebut...', ['Entrance','Exit','Emphasis','Fade slide'],2)),
-      L('Praktik: Memilih Secukupnya','<p>Latihan memilih transisi dan animasi secukupnya — cukup untuk membantu penekanan pesan, tidak berlebihan hingga mengganggu audiens.</p>',
+        Q('Animasi yang menekankan objek yang sudah ada di slide disebut...', ['Entrance','Exit','Emphasis','Fade slide'],2), 'Animations'),
+      L('Praktik: Memilih Secukupnya','<p>Latihan memilih transisi (tab Transitions) dan animasi (tab Animations) secukupnya — cukup untuk membantu penekanan pesan, tidak berlebihan hingga mengganggu audiens.</p>',
         Q('Penggunaan transisi/animasi sebaiknya...', ['Sebanyak mungkin di semua objek','Secukupnya agar tidak mengganggu','Dihindari sama sekali','Hanya di slide terakhir'],1),
-        Q('Terlalu banyak animasi berlebihan pada satu slide dapat...', ['Membuat pesan lebih jelas','Mengganggu fokus audiens','Selalu meningkatkan kualitas presentasi','Tidak berpengaruh sama sekali'],1))
+        Q('Terlalu banyak animasi berlebihan pada satu slide dapat...', ['Membuat pesan lebih jelas','Mengganggu fokus audiens','Selalu meningkatkan kualitas presentasi','Tidak berpengaruh sama sekali'],1), 'Transitions')
     ]},
     { id:'p5', title:'Tema & Slide Master (Konsistensi Desain)', desc:'Menjaga tampilan tetap konsisten dan efisien.', practiceType:'ppt-theme', levels:[
       L('Apa itu Tema (Theme)','<p><strong>Tema</strong> adalah paket warna, font, dan gaya yang berlaku ke seluruh presentasi sekaligus, membuat proses desain lebih cepat dan konsisten.</p>',
@@ -1155,7 +1154,7 @@ function goLevel(moduleId, levelIndex){
   document.getElementById('viewRoot').innerHTML = html;
   renderAbkBar(track);
   renderLessonContent(level, track);
-  renderPractice(module, track);
+  renderPractice(module, track, level);
   renderQuiz(module, track, levelIndex, level);
 }
 
@@ -1274,7 +1273,7 @@ function buildOfficeChrome(app, innerHtml, activeTab){
     </div>`;
   } else {
     const tab = activeTab || 'Home';
-    const tabs = ['Home','Insert','Design','Transitions'];
+    const tabs = ['Home','Insert','Design','Transitions','Animations'];
     const tabsHtml = tabs.map(t=>`<span class="rtab-fake${t===tab?' active rt-ppt':''}">${t}</span>`).join('');
     return `<div class="office-window">
       <div class="office-titlebar"><span class="tl-dot r"></span><span class="tl-dot y"></span><span class="tl-dot g"></span><span class="office-filename">Presentasi1 - PowerPoint</span></div>
@@ -1284,7 +1283,7 @@ function buildOfficeChrome(app, innerHtml, activeTab){
     </div>`;
   }
 }
-function renderPractice(module){
+function renderPractice(module, track, level){
   const box = document.getElementById('practiceBox');
   const pt = module.practiceType;
   if(pt==='word-plain'){
@@ -1431,7 +1430,7 @@ function renderPractice(module){
     box.innerHTML = items.map((t,i)=>`<div class="checklist-item"><input type="checkbox" id="ck${i}"><label for="ck${i}">${t}</label></div>`).join('');
   }
   const appType = pt.startsWith('word') ? 'word' : pt.startsWith('excel') ? 'excel' : 'ppt';
-  box.innerHTML = buildOfficeChrome(appType, box.innerHTML, RIBBON_TAB_BY_PRACTICE[pt]);
+  box.innerHTML = buildOfficeChrome(appType, box.innerHTML, (level && level.ribbonTab) || RIBBON_TAB_BY_PRACTICE[pt]);
   if(pt==='excel-chart'){ recalcChart(); }
 }
 
