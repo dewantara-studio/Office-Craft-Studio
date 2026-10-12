@@ -445,13 +445,12 @@
    ========================================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAwABtavcBrSTYRL9mlmHM01z_fbz2wkiA",
-  authDomain: "officecraft-studio.firebaseapp.com",
-  projectId: "officecraft-studio",
-  storageBucket: "officecraft-studio.firebasestorage.app",
-  messagingSenderId: "625737188043",
-  appId: "1:625737188043:web:acea90962a0964a5eb514e",
-  measurementId: "G-5TGEYWHVC3"
+  apiKey: "GANTI_DENGAN_API_KEY_FIREBASE_MU",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
+  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
+  appId: "GANTI_DENGAN_APP_ID"
 };
 
 let fbReady = false;
@@ -504,7 +503,7 @@ function syncThemeButtons(){
 }
 function stopSpeech(){ try{ window.speechSynthesis.cancel(); }catch(e){} }
 
-function L(title, lesson, q1, q2, ribbonTab){ return {title, lesson, quiz:[q1,q2], ribbonTab}; }
+function L(title, lesson, q1, q2, ribbonTab, practiceOverride){ return {title, lesson, quiz:[q1,q2], ribbonTab, practiceOverride}; }
 function Q(q, opts, correct){ return {q, opts, correct}; }
 
 /* =========================================================================
@@ -535,13 +534,13 @@ const TRACKS = [
         Q('Fungsi utama Ribbon adalah...', ['Menyimpan file otomatis','Mengelompokkan perintah agar mudah ditemukan','Mengganti bahasa dokumen','Menghapus dokumen'],1), 'Home'),
       L('Tab Home: Pusat Pemformatan','<p>Tab <strong>Home</strong> adalah tab yang paling sering dipakai. Berisi grup Font (jenis & ukuran huruf), grup Paragraph (perataan, bullet), dan grup Styles (gaya judul).</p>',
         Q('Grup Font pada tab Home dipakai untuk mengatur...', ['Ukuran kertas','Jenis dan ukuran huruf','Jumlah halaman','Warna tema'],1),
-        Q('Tab yang paling sering dipakai untuk memformat teks adalah...', ['Insert','Home','View','References'],1), 'Home'),
+        Q('Tab yang paling sering dipakai untuk memformat teks adalah...', ['Insert','Home','View','References'],1), 'Home', 'word-format'),
       L('Tab Insert: Menambah Konten','<p>Tab <strong>Insert</strong> dipakai untuk menambahkan elemen baru ke dokumen: gambar, tabel, bentuk (shapes), hingga halaman kosong baru.</p><ul><li>Insert &gt; Table untuk menambah tabel.</li><li>Insert &gt; Pictures untuk menambah gambar.</li></ul>',
         Q('Untuk menambahkan tabel baru, gunakan tab...', ['Home','Insert','Layout','Review'],1),
-        Q('Elemen yang TIDAK ditambahkan lewat tab Insert adalah...', ['Gambar','Tabel','Margin halaman','Bentuk (shape)'],2), 'Insert'),
+        Q('Elemen yang TIDAK ditambahkan lewat tab Insert adalah...', ['Gambar','Tabel','Margin halaman','Bentuk (shape)'],2), 'Insert', 'word-image'),
       L('Tab Layout: Pengaturan Halaman','<p>Tab <strong>Layout</strong> mengatur tampilan halaman secara keseluruhan, seperti margin (jarak tepi), orientasi (potret/lanskap), dan jarak antar kolom.</p>',
         Q('Pengaturan margin dan orientasi halaman ada di tab...', ['Home','Insert','Layout','View'],2),
-        Q('Orientasi halaman yang tersedia di Word adalah...', ['Potret dan Lanskap','Vertikal dan Diagonal','Kotak dan Bulat','Besar dan Kecil'],0), 'Layout'),
+        Q('Orientasi halaman yang tersedia di Word adalah...', ['Potret dan Lanskap','Vertikal dan Diagonal','Kotak dan Bulat','Besar dan Kecil'],0), 'Layout', 'word-layout'),
       L('Praktik: Dokumen Pertama & Menyimpan','<p>Sekarang gabungkan semuanya: ketik dokumen singkat, lalu simpan dengan <strong>Ctrl+S</strong>. Word menyimpan file dengan format <code>.docx</code> secara default.</p><ul><li>Save menyimpan ke file yang sama.</li><li>Save As menyimpan sebagai file/nama baru.</li></ul>',
         Q('Format file default dokumen Word adalah...', ['.pdf','.docx','.xlsx','.pptx'],1),
         Q('Untuk menyimpan dokumen dengan nama baru, gunakan...', ['Save','Save As','Print','Undo'],1), 'Home')
@@ -1286,7 +1285,7 @@ function buildOfficeChrome(app, innerHtml, activeTab){
 }
 function renderPractice(module, track, level){
   const box = document.getElementById('practiceBox');
-  const pt = module.practiceType;
+  const pt = (level && level.practiceOverride) || module.practiceType;
   if(pt==='word-plain'){
     box.innerHTML = `<div class="word-editor" contenteditable="true">Ketik kalimat pertamamu di sini.</div>`;
   } else if(pt==='word-format'){
